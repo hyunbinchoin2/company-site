@@ -24,8 +24,9 @@ export function mountChrome(current) {
       <a class="logo" href="./" aria-label="${esc(C.name)} 홈">${esc(C.nameEn || C.name)}</a>
       <nav class="nav" aria-label="주 메뉴">
         <a href="./#solutions">솔루션</a>
-        <a href="./#strengths">회사 소개</a>
+        <a href="./#why">회사 소개</a>
         <a href="./blog.html" ${current === "blog" ? 'aria-current="page"' : ""}>블로그</a>
+        <a href="./#contact">도입 문의</a>
         <a class="btn small" href="#subscribe">뉴스레터 구독</a>
       </nav>
     </div></header>`;
@@ -39,6 +40,11 @@ export function mountChrome(current) {
       </div>
       <p class="foot-copy">© ${new Date().getFullYear()} ${esc(C.nameEn || C.name)}</p>
     </div></footer>`;
+  // 스크롤하면 헤더 아래 그림자
+  const bar = document.querySelector(".site-header");
+  const onScroll = () => bar && bar.classList.toggle("scrolled", window.scrollY > 8);
+  window.addEventListener("scroll", onScroll, { passive: true });
+  onScroll();
 }
 
 export function bindSubscribeForms() {
