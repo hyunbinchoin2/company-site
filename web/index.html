@@ -12,114 +12,157 @@
   <div data-header></div>
 
   <main>
+    <!-- 첫 화면: 대출 업무 흐름과 솔루션 -->
     <section class="hero">
       <div class="wrap">
-        <div>
-          <p class="hero-kicker">금융시스템 전문 솔루션 IT기업</p>
-          <h1>대출의 시작부터 회수까지,<br>하나의 시스템으로</h1>
-          <p class="lead">엔투소프트는 저축은행을 비롯한 금융기관의 대출 업무를 하나로 관리하는 통합여신관리시스템과 금융 IT 솔루션을 만듭니다.</p>
-          <div class="hero-actions">
-            <a class="btn" href="#solutions">솔루션 보기</a>
-            <a class="btn ghost" id="contact-btn" href="tel:1877-1977">도입 문의 1877-1977</a>
-          </div>
-          <div class="facts">
-            <div><b>약 40곳</b><span>저축은행 여신관리시스템 구축</span></div>
-            <div><b>21년</b><span>금융 업무 한 분야 노하우</span></div>
-            <div><b>ISO27001</b><span>정보보호 국제 인증</span></div>
+        <div class="hero-top">
+          <h1>대출 업무의 모든 단계를<br class="br-wide"> 하나로 연결합니다</h1>
+          <div class="hero-side">
+            <p>엔투소프트는 저축은행 약 40곳의 여신관리시스템을 구축한 금융 IT 전문 기업입니다. 아래 단계를 눌러 각 업무에 어떤 솔루션이 쓰이는지 확인해 보세요.</p>
+            <div class="hero-actions">
+              <a class="btn" href="#contact">도입 문의하기</a>
+              <a class="btn ghost" href="#solutions">솔루션 전체 보기</a>
+            </div>
           </div>
         </div>
 
-        <div class="loan" role="img" aria-label="통합여신관리시스템 화면 예시: 대출 한 건이 상담부터 회수까지 관리되는 모습">
-          <div class="loan-head"><b>nTree.NEXT AI</b><small>화면 예시</small></div>
-          <div class="loan-acct"><span>개인신용대출</span><strong>계좌 2026-0418</strong></div>
-          <ol class="steps">
-            <li class="done"><i>✓</i>상담</li>
-            <li class="done"><i>✓</i>심사</li>
-            <li class="done"><i>✓</i>실행</li>
-            <li class="now"><i>4</i>사후관리</li>
-            <li><i>5</i>회수</li>
-          </ol>
-          <div class="ai-note">
-            <b>AI 알림</b>
-            최근 상환 패턴이 바뀌어 다음 달 연체 가능성이 높아졌습니다. 상환일 전에 안내문을 보내는 것을 권장합니다.
-            <br><span class="act">QUPID로 안내문 발송</span>
+        <div class="flow">
+          <ol class="flow-steps" id="steps" role="tablist" aria-label="대출 업무 단계"></ol>
+          <div class="flow-panel" id="panel" role="tabpanel" aria-live="polite">
+            <div class="fp-text"><h3 id="fp-title"></h3><p id="fp-desc"></p></div>
+            <div class="fp-sols"><span class="fp-label">이 단계에서 쓰는 솔루션</span><div class="fp-chips" id="fp-chips"></div></div>
           </div>
         </div>
+        <p class="flow-note">NMPS/NFPS는 모든 단계에서 시스템 개발과 운영을 지원합니다.</p>
       </div>
     </section>
 
-    <section class="strengths" id="strengths">
+    <!-- 솔루션 -->
+    <section class="sec" id="solutions">
       <div class="wrap">
-        <h2 class="section-title">금융 업무를 아는 사람들이 만듭니다</h2>
-        <p class="section-desc">경험, 업무 이해, 전문 조직, 운영과 기술. 네 가지를 바탕으로 고객사의 사업 목표를 함께 이룹니다.</p>
-        <div class="strength-list">
-          <div class="strength"><h3>경험</h3><span class="en">Experience</span><ul>
-            <li>저축은행 40곳 가까이 여신관리시스템 구축</li>
-            <li>현업에서 꼭 필요한 금융 IT 솔루션 제공</li>
-            <li>모바일 웹·앱 개발과 유관기관 연동 경험 다수</li></ul></div>
-          <div class="strength"><h3>업무 이해</h3><span class="en">Understand</span><ul>
-            <li>금융 업무만 21년간 쌓아온 노하우</li>
-            <li>현업과 고객의 입장에서 설계한 솔루션</li>
-            <li>여신관리시스템부터 자체 솔루션까지 맞춤 제공</li></ul></div>
-          <div class="strength"><h3>전문 조직</h3><span class="en">Organization</span><ul>
-            <li>금융권 구축 경험이 있는 인재 중심의 조직</li>
-            <li>채널 UI/UX 경험이 풍부한 전문가 보유</li>
-            <li>금융 전문 개발자 양성 교육 프로그램 운영</li></ul></div>
-          <div class="strength"><h3>운영과 기술</h3><span class="en">Technology</span><ul>
-            <li>기획부터 개발 후 관리까지 책임지는 운영</li>
-            <li>ISO27001 기준의 개인정보 보안 체계</li>
-            <li>금융권 표준 개발 가이드라인 준수</li></ul></div>
+        <div class="sec-head">
+          <div>
+            <h2>솔루션</h2>
+            <p>대출 관리의 핵심 시스템부터 문서 발송, 보안, 비대면 채널까지 금융기관에 필요한 도구를 갖추고 있습니다.</p>
+          </div>
         </div>
-      </div>
-    </section>
-
-    <section id="solutions">
-      <div class="wrap">
-        <h2 class="section-title">솔루션과 서비스</h2>
-        <p class="section-desc">대출 관리의 핵심 시스템부터 문서 발송, 보안, 비대면 채널까지 금융기관에 필요한 도구를 제공합니다.</p>
-        <div class="sol-feature">
-          <div class="sol-main">
+        <div class="sol-grid">
+          <div class="sol main" id="sol-ntree" tabindex="0">
+            <span class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="5" r="2.5"/><circle cx="5" cy="18" r="2.5"/><circle cx="19" cy="18" r="2.5"/><path d="M12 7.5v4M12 11.5 5 15.5M12 11.5l7 4"/></svg></span>
             <span class="kind">통합여신관리시스템</span>
             <h3>nTree.NEXT AI</h3>
             <p>금융기관마다 필수로 쓰는 채권관리를 중심으로 다양한 금융상품을 관리하고, 대출 업무를 편리하게 만드는 시스템입니다.</p>
+            <div class="tags"><span>채권관리</span><span>금융상품 관리</span><span>여신 업무 전반</span></div>
           </div>
-          <div class="sol-main">
+          <div class="sol" id="sol-qupid" tabindex="0">
+            <span class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></span>
             <span class="kind">종합우편 DX서비스</span>
             <h3>QUPID</h3>
-            <p>고객에게 보내는 문서를 전자우편과 전자문서로 발송하고, 배달 이력을 전산으로 관리하는 서비스입니다.</p>
+            <p>고객에게 보내는 문서를 전자우편과 전자문서로 발송하고, 배달 이력을 전산으로 관리합니다.</p>
           </div>
-        </div>
-        <div class="sol-list">
-          <div class="sol-item"><h4>APP/WEB 금융서비스</h4><p>비대면 서비스와 시스템 연계를 지원하는 모바일 금융 플랫폼</p></div>
-          <div class="sol-item"><h4>NMPS/NFPS</h4><p>개발 운영지원 시스템</p></div>
-          <div class="sol-item"><h4>Secure FAX</h4><p>가상 FAX 서비스</p></div>
-          <div class="sol-item"><h4>Secure Image System</h4><p>이미지 보안 솔루션</p></div>
-          <div class="sol-item"><h4>Q-call</h4><p>AI 콜 어시스턴트 시스템</p></div>
+          <div class="sol" id="sol-app" tabindex="0">
+            <span class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M11 18.5h2"/></svg></span>
+            <span class="kind">앱/웹 금융서비스</span>
+            <h3>APP/WEB 금융서비스</h3>
+            <p>사용자 중심의 모바일 환경에서 비대면 금융 서비스와 시스템 연계를 지원합니다.</p>
+          </div>
+          <div class="sol" id="sol-nmps" tabindex="0">
+            <span class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="m7 9 3 3-3 3M12 15h5"/></svg></span>
+            <span class="kind">개발 운영지원 시스템</span>
+            <h3>NMPS/NFPS</h3>
+            <p>금융 시스템의 개발과 운영을 지원합니다.</p>
+          </div>
+          <div class="sol" id="sol-fax" tabindex="0">
+            <span class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 8V3h10v5"/><rect x="3" y="8" width="18" height="10" rx="2"/><path d="M7 14h10v7H7z"/></svg></span>
+            <span class="kind">가상 FAX 서비스</span>
+            <h3>Secure FAX</h3>
+            <p>팩스 기기 없이 보안이 적용된 가상 팩스로 문서를 주고받습니다.</p>
+          </div>
+          <div class="sol" id="sol-image" tabindex="0">
+            <span class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="1.8"/><path d="m21 16-5-5-9 9"/></svg></span>
+            <span class="kind">이미지 보안 솔루션</span>
+            <h3>Secure Image System</h3>
+            <p>금융 업무에서 다루는 이미지를 안전하게 보호합니다.</p>
+          </div>
+          <div class="sol" id="sol-qcall" tabindex="0">
+            <span class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 14v-2a8 8 0 0 1 16 0v2"/><rect x="3" y="14" width="4" height="6" rx="1.5"/><rect x="17" y="14" width="4" height="6" rx="1.5"/></svg></span>
+            <span class="kind">AI 콜 어시스턴트</span>
+            <h3>Q-call</h3>
+            <p>AI가 고객 전화 응대를 돕는 콜 어시스턴트 시스템입니다.</p>
+          </div>
+          <a class="sol ask" href="tel:1877-1977">
+            <div><h3>어떤 솔루션이 맞을지 고민되시나요?</h3><p>업무 환경을 듣고 필요한 구성을 안내해 드립니다.</p></div>
+            <span class="call">1877-1977</span>
+          </a>
         </div>
       </div>
     </section>
 
+    <!-- 선택하는 이유 -->
+    <section class="sec why" id="why">
+      <div class="wrap">
+        <div class="sec-head">
+          <div>
+            <h2>엔투소프트를 선택하는 이유</h2>
+            <p>금융 업무 한 분야에서 쌓은 경험과 조직, 기술로 고객사의 사업 목표를 함께 이룹니다.</p>
+          </div>
+        </div>
+        <div class="why-grid">
+          <div class="why-item">
+            <div class="why-key"><strong>약 40곳</strong><span>저축은행 여신관리시스템 구축</span></div>
+            <div class="why-body"><h3>검증된 구축 경험</h3><ul>
+              <li>저축은행 최다 고객사를 보유하고 있습니다</li>
+              <li>현업에서 꼭 필요한 금융 IT 솔루션을 제공합니다</li>
+              <li>모바일 웹·앱 개발과 유관기관 연동 경험이 많습니다</li></ul></div>
+          </div>
+          <div class="why-item">
+            <div class="why-key"><strong>21년</strong><span>금융 업무 한 분야</span></div>
+            <div class="why-body"><h3>깊은 업무 이해</h3><ul>
+              <li>금융 업무만 전문으로 쌓아온 노하우가 있습니다</li>
+              <li>현업과 고객의 입장에서 솔루션을 설계합니다</li>
+              <li>여신관리시스템부터 자체 솔루션까지 맞춤 제공합니다</li></ul></div>
+          </div>
+          <div class="why-item">
+            <div class="why-key"><strong>금융 전문</strong><span>개발·UI/UX 인력</span></div>
+            <div class="why-body"><h3>전문 인력과 조직</h3><ul>
+              <li>금융권 구축 경험이 있는 인재 중심으로 구성했습니다</li>
+              <li>채널 UI/UX 경험이 풍부한 전문가가 있습니다</li>
+              <li>금융 전문 개발자 양성 교육을 운영합니다</li></ul></div>
+          </div>
+          <div class="why-item">
+            <div class="why-key"><strong>ISO27001</strong><span>정보보호 국제 인증</span></div>
+            <div class="why-body"><h3>안정적인 운영과 기술</h3><ul>
+              <li>기획부터 개발 후 관리까지 책임지고 운영합니다</li>
+              <li>ISO27001 기준으로 개인정보 보안 체계를 갖췄습니다</li>
+              <li>금융권 표준 개발 가이드라인을 준수합니다</li></ul></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 인증 -->
     <div class="certs">
       <div class="wrap">
-        <div><h2>인증과 확인</h2><p>저축은행 최다 고객사를 보유한 기업으로서 기술과 보안을 인정받았습니다.</p></div>
+        <div><h2>인증과 확인</h2><p>기술력과 보안 체계를 외부 기관으로부터 인정받았습니다.</p></div>
         <ul class="cert-list">
-          <li>ISO27001 인증</li>
-          <li>혁신성장형 벤처기업 인증</li>
-          <li>강소기업 확인</li>
-          <li>경영혁신형 중소기업 확인</li>
-          <li>2020 기술역량우수기업 인증</li>
-          <li>특허 보유</li>
-          <li>한국산업기술진흥협회 회원사</li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="9" r="6"/><path d="m9 14.5-1.5 7L12 19l4.5 2.5-1.5-7"/></svg>ISO27001 인증</li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="9" r="6"/><path d="m9 14.5-1.5 7L12 19l4.5 2.5-1.5-7"/></svg>혁신성장형 벤처기업 인증</li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="9" r="6"/><path d="m9 14.5-1.5 7L12 19l4.5 2.5-1.5-7"/></svg>강소기업 확인</li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="9" r="6"/><path d="m9 14.5-1.5 7L12 19l4.5 2.5-1.5-7"/></svg>경영혁신형 중소기업 확인</li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="9" r="6"/><path d="m9 14.5-1.5 7L12 19l4.5 2.5-1.5-7"/></svg>2020 기술역량우수기업 인증</li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="9" r="6"/><path d="m9 14.5-1.5 7L12 19l4.5 2.5-1.5-7"/></svg>특허 보유</li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="9" r="6"/><path d="m9 14.5-1.5 7L12 19l4.5 2.5-1.5-7"/></svg>한국산업기술진흥협회 회원사</li>
         </ul>
       </div>
     </div>
 
-    <section id="posts">
+    <!-- 최근 소식 -->
+    <section class="sec" id="posts">
       <div class="wrap">
-        <div class="posts-head">
+        <div class="sec-head">
           <div>
-            <h2 class="section-title">최근 소식</h2>
-            <p class="section-desc">구축 사례, 솔루션 업데이트, 금융 IT 소식을 정리해 올립니다.</p>
+            <h2>최근 소식</h2>
+            <p>구축 사례, 솔루션 업데이트, 금융 IT 소식을 정리해 올립니다.</p>
           </div>
           <a class="btn ghost small" href="./blog.html">블로그 전체 보기</a>
         </div>
@@ -127,13 +170,23 @@
       </div>
     </section>
 
-    <section class="subscribe" id="subscribe">
+    <!-- 문의 + 구독 -->
+    <section class="sec contact" id="contact">
       <div class="wrap">
         <div>
-          <h2 class="section-title">한 달에 한 번, 새 글을 메일로 받아보세요</h2>
-          <p class="section-desc">새로 올라온 구축 사례와 솔루션 소식만 골라 보내드립니다. 언제든 수신거부할 수 있습니다.</p>
+          <h2>도입을 검토하고 계신가요?</h2>
+          <p class="lead">업무 환경과 필요한 기능을 알려주시면 맞는 구성을 안내해 드립니다.</p>
+          <div class="contact-lines">
+            <a class="contact-line big" id="c-phone" href="tel:1877-1977"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg></span><span><small>대표 전화</small><b>1877-1977</b></span></a>
+            <a class="contact-line" id="c-mail" href="mailto:hbchoi@n2soft.co.kr"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></span><span><small>이메일</small><b>hbchoi@n2soft.co.kr</b></span></a>
+            <a class="contact-line" id="c-map" href="https://map.kakao.com/?q=경기 성남시 중원구 갈마치로288번길 14" target="_blank" rel="noopener"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s7-6.2 7-12a7 7 0 0 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="9" r="2.5"/></svg></span><span><small>본사 (지도 열기)</small><b id="c-addr">경기도 성남시 중원구 갈마치로288번길 14 SKV1타워 A동 1003호</b></span></a>
+          </div>
         </div>
-        <div id="sub-slot"></div>
+        <div class="sub-card" id="subscribe">
+          <h3>뉴스레터 구독</h3>
+          <p>새로 올라온 구축 사례와 솔루션 소식을 한 달에 한 번 메일로 보내드립니다. 언제든 수신거부할 수 있습니다.</p>
+          <div id="sub-slot"></div>
+        </div>
       </div>
     </section>
   </main>
@@ -145,40 +198,95 @@
     import { listPublishedPosts } from "./assets/js/api.js";
 
     mountChrome("home");
-    document.title = `${C.name} | ${C.tagline}`;
-    document.getElementById("contact-btn").href = `tel:${C.phone}`;
-    document.getElementById("contact-btn").textContent = `도입 문의 ${C.phone}`;
-    document.getElementById("sub-slot").innerHTML = subscribeFormHtml();
+    document.getElementById("sub-slot").innerHTML = subscribeFormHtml("구독하기");
     bindSubscribeForms();
 
+    // 연락처는 config.js 값으로 채움
+    const tel = C.phone.replace(/[^0-9]/g, "");
+    document.getElementById("c-phone").href = `tel:${tel}`;
+    document.querySelector("#c-phone b").textContent = C.phone;
+    document.getElementById("c-mail").href = `mailto:${C.email}`;
+    document.querySelector("#c-mail b").textContent = C.email;
+    document.getElementById("c-addr").textContent = C.address;
+    document.getElementById("c-map").href = `https://map.kakao.com/?q=${encodeURIComponent(C.address)}`;
+
+    /* ---------- 대출 업무 흐름 ---------- */
+    const ICON = {
+      tree: `<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="5" r="2.5"/><circle cx="5" cy="18" r="2.5"/><circle cx="19" cy="18" r="2.5"/><path d="M12 7.5v4M12 11.5 5 15.5M12 11.5l7 4"/></svg>`, mail: `<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>`, app: `<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M11 18.5h2"/></svg>`,
+      fax: `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 8V3h10v5"/><rect x="3" y="8" width="18" height="10" rx="2"/><path d="M7 14h10v7H7z"/></svg>`, image: `<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="1.8"/><path d="m21 16-5-5-9 9"/></svg>`, headset: `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 14v-2a8 8 0 0 1 16 0v2"/><rect x="3" y="14" width="4" height="6" rx="1.5"/><rect x="17" y="14" width="4" height="6" rx="1.5"/></svg>`,
+    };
+    const SOL = {
+      ntree: ["nTree.NEXT AI", "tree"], qupid: ["QUPID", "mail"], app: ["APP/WEB 금융서비스", "app"],
+      fax: ["Secure FAX", "fax"], image: ["Secure Image System", "image"], qcall: ["Q-call", "headset"],
+    };
+    const STEPS = [
+      { name: "상담·접수", desc: "고객이 앱이나 전화로 대출을 문의하고 신청합니다.", sols: ["app", "qcall"] },
+      { name: "심사", desc: "제출 서류를 받아 확인하고 고객의 신용을 평가합니다.", sols: ["ntree", "image", "fax"] },
+      { name: "실행", desc: "약정을 맺고 대출금을 지급한 뒤 계좌를 관리하기 시작합니다.", sols: ["ntree", "qupid"] },
+      { name: "사후관리", desc: "상환 일정과 연체 위험을 살피고 필요한 안내를 보냅니다.", sols: ["ntree", "qupid", "qcall"] },
+      { name: "회수", desc: "연체 채권을 관리하고 통지와 회수 절차를 진행합니다.", sols: ["ntree", "qupid"] },
+    ];
+    const stepsEl = document.getElementById("steps");
+    const panel = document.getElementById("panel");
+    stepsEl.innerHTML = STEPS.map((s, i) => `
+      <li><button class="step" role="tab" id="step-${i}" aria-selected="false" aria-controls="panel" data-i="${i}">
+        <span class="n">${i + 1}</span><b>${s.name}</b></button></li>`).join("");
+    const buttons = [...stepsEl.querySelectorAll(".step")];
+    let current = -1;
+
+    function show(i) {
+      if (i === current) return;
+      current = i;
+      stepsEl.style.setProperty("--p", i);
+      buttons.forEach((b, k) => {
+        b.setAttribute("aria-selected", k === i);
+        b.classList.toggle("passed", k < i);
+        b.tabIndex = k === i ? 0 : -1;
+      });
+      panel.setAttribute("aria-labelledby", `step-${i}`);
+      panel.classList.add("swap");
+      setTimeout(() => {
+        const s = STEPS[i];
+        document.getElementById("fp-title").textContent = s.name;
+        document.getElementById("fp-desc").textContent = s.desc;
+        document.getElementById("fp-chips").innerHTML = s.sols.map((k) =>
+          `<a class="chip-sol" href="#sol-${k}">${ICON[SOL[k][1]]}${SOL[k][0]}</a>`).join("");
+        panel.classList.remove("swap");
+      }, 140);
+    }
+    buttons.forEach((b, i) => {
+      b.addEventListener("mouseenter", () => show(i));
+      b.addEventListener("focus", () => show(i));
+      b.addEventListener("click", () => show(i));
+    });
+    stepsEl.addEventListener("keydown", (e) => {
+      if (!["ArrowLeft", "ArrowRight"].includes(e.key)) return;
+      const n = (current + (e.key === "ArrowRight" ? 1 : -1) + STEPS.length) % STEPS.length;
+      buttons[n].focus();
+    });
+    show(0);
+
+    /* ---------- 최근 소식 ---------- */
     const box = document.getElementById("latest");
     try {
-      const posts = await listPublishedPosts({ limit: 4 });
+      const posts = await listPublishedPosts({ limit: 3 });
       if (!posts.length) {
         box.className = "empty";
-        box.textContent = "아직 올라온 글이 없습니다.";
+        box.textContent = "아직 올라온 글이 없습니다. 첫 소식을 준비하고 있습니다.";
       } else {
-        const [lead, ...rest] = posts;
-        const href = (p) => `./post.html?slug=${encodeURIComponent(p.slug)}`;
-        box.className = "post-grid";
-        box.innerHTML = `
-          <article class="post-lead"><a href="${href(lead)}">
-            <div class="thumb">${lead.cover_url ? `<img src="${esc(lead.cover_url)}" alt="" loading="lazy">` : ""}</div>
-            <span class="cat">${esc(lead.category || "")}</span>
-            <h3>${esc(lead.title)}</h3>
-            <p>${esc(lead.excerpt || "")}</p>
-          </a></article>
-          <div class="post-side">${rest.map((p) => `
-            <article class="post-row"><a href="${href(p)}">
-              <span class="cat">${esc(p.category || "")}</span>
-              <h4>${esc(p.title)}</h4>
-              <span class="date">${fmtDate(p.published_at)}</span>
-            </a><a href="${href(p)}" class="thumb" tabindex="-1" aria-hidden="true">${p.cover_url ? `<img src="${esc(p.cover_url)}" alt="" loading="lazy">` : ""}</a></article>`).join("")}
-          </div>`;
+        box.className = "news-grid";
+        box.innerHTML = posts.map((p) => `
+          <a class="news-card" href="./post.html?slug=${encodeURIComponent(p.slug)}">
+            ${p.cover_url ? `<div class="thumb"><img src="${esc(p.cover_url)}" alt="" loading="lazy"></div>` : `<div class="thumb none">${esc(C.nameEn || C.name)}</div>`}
+            <span class="cat">${esc(p.category || "소식")}</span>
+            <h3>${esc(p.title)}</h3>
+            <p>${esc(p.excerpt || "")}</p>
+            <span class="date">${fmtDate(p.published_at)}</span>
+          </a>`).join("");
       }
     } catch (e) {
       box.className = "empty";
-      box.textContent = "글을 불러오지 못했습니다. config.js 의 Supabase 설정을 확인하세요.";
+      box.textContent = "글을 불러오지 못했습니다. 잠시 후 다시 확인해 주세요.";
       console.error(e);
     }
   </script>
