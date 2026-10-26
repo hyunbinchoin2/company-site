@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>블로그</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔦</text></svg>">
+  <link rel="stylesheet" href="./assets/css/site.css">
+</head>
+<body>
+  <div data-header></div>
+  <main>
+    <div class="wrap">
+      <header class="page-head">
+        <h1>블로그</h1>
+        <p>고객 사례, 제품 업데이트, 현장 인사이트</p>
+        <div class="filters" id="filters" role="group" aria-label="분류"></div>
+      </header>
+      <div class="blog-list" id="list"><p class="loading">글을 불러오는 중입니다…</p></div>
+    </div>
+
+    <section class="subscribe" id="subscribe" style="margin-top:56px">
+      <div class="wrap">
+        <div>
+          <h2 class="section-title">새 글을 메일로 받아보세요</h2>
+          <p class="section-desc">한 달에 한 번 보내드립니다. 언제든 수신거부할 수 있습니다.</p>
+        </div>
+        <div id="sub-slot"></div>
+      </div>
+    </section>
+  </main>
+  <div data-footer></div>
+
+  <script type="module">
+    import { C, esc, fmtDate, mountChrome, bindSubscribeForms, subscribeFormHtml } from "./assets/js/site.js";
+    import { listPublishedPosts } from "./assets/js/api.js";
+
+    mountChrome("blog");
+    document.title = `블로그 | ${C.name}`;
+    document.getElementById("sub-slot").innerHTML = subscribeFormHtml();
+    bindSubscribeForms();
+
+    const list = document.getElementById("list");
+    const filters = document.getElementById("filters");
+    let all = [];
+    let active = null;
+
+    function render() {
+      const posts = active ? all.filter((p) => p.category === active) : all;
+      list.innerHTML = posts.length ? posts.map((p) => `
+        <a class="blog-item" href="./post.html?slug=${encodeURIComponent(p.slug)}">
+          <div class="thumb">${p.cover_url ? `<img src="${esc(p.cover_url)}" alt="" loading="lazy">` : ""}</div>
+          <div>
+            <span class="cat">${esc(p.category || "")}</span>
+            <h2>${esc(p.title)}</h2>
+            <p>${esc(p.excerpt || "")}</p>
+            <span class="date">${fmtDate(p.published_at)}</span>
+          </div>
+        </a>`).join("") : `<p class="empty">이 분류에는 아직 글이 없습니다.</p>`;
+    }
+
+    try {
+      all = await listPublishedPosts({ limit: 200 });
+      const cats = [...new Set(all.map((p) => p.category).filter(Boolean))];
+      filters.innerHTML = [`<button class="chip" aria-pressed="true" data-cat="">전체</button>`,
+        ...cats.map((c) => `<button class="chip" aria-pressed="false" data-cat="${esc(c)}">${esc(c)}</button>`)].join("");
+      filters.addEventListener("click", (e) => {
+        const b = e.target.closest(".chip");
+        if (!b) return;
+        active = b.dataset.cat || null;
+        filters.querySelectorAll(".chip").forEach((x) => x.setAttribute("aria-pressed", x === b));
+        render();
+      });
+      render();
+    } catch (e) {
+      list.innerHTML = `<p class="empty">글을 불러오지 못했습니다.</p>`;
+      console.error(e);
+    }
+  </script>
+</body>
+</html>

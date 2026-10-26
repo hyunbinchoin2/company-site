@@ -1,0 +1,11 @@
+# Supabase CLI 설정 (함수 배포용 최소 설정)
+project_id = "newsletter"
+
+[functions.send-newsletter]
+verify_jwt = true
+
+[functions.track]
+verify_jwt = false
+
+[functions.unsubscribe]
+verify_jwt = false

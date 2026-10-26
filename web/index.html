@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>라이트하우스랩 | 제조 데이터 분석</title>
+  <meta name="description" content="공장 설비 데이터를 실시간으로 모아 불량과 고장을 미리 알려주는 산업용 분석 플랫폼">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔦</text></svg>">
+  <link rel="stylesheet" href="./assets/css/site.css">
+</head>
+<body>
+  <div data-header></div>
+
+  <main>
+    <section class="hero">
+      <div class="wrap">
+        <div>
+          <h1 id="hero-title">고장 나기 전에<br>먼저 알려드립니다</h1>
+          <p id="hero-desc"></p>
+          <div class="hero-actions">
+            <a class="btn" href="#posts">고객 사례 보기</a>
+            <a class="btn ghost" id="contact-btn" href="#">도입 문의하기</a>
+          </div>
+        </div>
+
+        <div class="monitor" aria-label="설비 모니터링 화면 예시" role="img">
+          <div class="monitor-head"><span><b>프레스 2라인</b> 설비 상태</span><span class="live">실시간</span></div>
+          <div class="sensor"><span>진동 (X축)</span>
+            <svg viewBox="0 0 200 34" preserveAspectRatio="none"><path d="M0 20 L12 18 L24 21 L36 17 L48 19 L60 16 L72 20 L84 18 L96 19 L108 17 L120 20 L132 18 L144 19 L156 17 L168 20 L180 18 L200 19"/></svg>
+            <span class="val">2.1 mm/s</span></div>
+          <div class="sensor"><span>모터 온도</span>
+            <svg viewBox="0 0 200 34" preserveAspectRatio="none"><path d="M0 24 L20 23 L40 23 L60 22 L80 22 L100 21 L120 22 L140 21 L160 21 L180 20 L200 20"/></svg>
+            <span class="val">61.4 °C</span></div>
+          <div class="sensor warn"><span>베어링 #3</span>
+            <svg viewBox="0 0 200 34" preserveAspectRatio="none"><path d="M0 26 L20 25 L40 26 L60 24 L80 23 L100 21 L120 19 L140 15 L160 13 L180 9 L200 6"/></svg>
+            <span class="val">7.8 mm/s</span></div>
+          <div class="monitor-foot">베어링 #3 진동이 늘고 있습니다. 약 9일 안에 점검이 필요합니다.</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="capabilities" id="capabilities">
+      <div class="wrap">
+        <h2 class="section-title">설비 옆에서 하는 일</h2>
+        <p class="section-desc">이미 있는 PLC와 센서에 연결해 2주 안에 첫 리포트를 받아보실 수 있습니다.</p>
+        <div class="cap-list">
+          <div class="cap"><h3>데이터 수집</h3><p>PLC, 진동·온도 센서, MES 기록을 한곳에 모읍니다. 기존 장비를 바꿀 필요가 없습니다.</p></div>
+          <div class="cap"><h3>이상 징후 감지</h3><p>설비마다 정상 패턴을 학습해, 평소와 다른 움직임을 고장 전에 알려드립니다.</p></div>
+          <div class="cap"><h3>현장용 리포트</h3><p>교대가 끝날 때마다 생산량, 불량률, 점검할 설비를 한 장으로 정리해 드립니다.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="posts">
+      <div class="wrap">
+        <div class="posts-head">
+          <div>
+            <h2 class="section-title">최근 소식</h2>
+            <p class="section-desc">고객 사례, 제품 업데이트, 현장 인사이트를 정리해 올립니다.</p>
+          </div>
+          <a class="btn ghost small" href="./blog.html">블로그 전체 보기</a>
+        </div>
+        <div id="latest" class="loading">글을 불러오는 중입니다…</div>
+      </div>
+    </section>
+
+    <section class="subscribe" id="subscribe">
+      <div class="wrap">
+        <div>
+          <h2 class="section-title">한 달에 한 번, 새 글을 메일로 받아보세요</h2>
+          <p class="section-desc">새로 올라온 사례와 업데이트만 골라 보내드립니다. 언제든 수신거부할 수 있습니다.</p>
+        </div>
+        <div id="sub-slot"></div>
+      </div>
+    </section>
+  </main>
+
+  <div data-footer></div>
+
+  <script type="module">
+    import { C, esc, fmtDate, mountChrome, bindSubscribeForms, subscribeFormHtml } from "./assets/js/site.js";
+    import { listPublishedPosts } from "./assets/js/api.js";
+
+    mountChrome("home");
+    document.title = `${C.name} | ${C.tagline}`;
+    document.getElementById("hero-desc").textContent = C.description;
+    document.getElementById("contact-btn").href = `mailto:${C.email}`;
+    document.getElementById("sub-slot").innerHTML = subscribeFormHtml();
+    bindSubscribeForms();
+
+    const box = document.getElementById("latest");
+    try {
+      const posts = await listPublishedPosts({ limit: 4 });
+      if (!posts.length) {
+        box.className = "empty";
+        box.textContent = "아직 올라온 글이 없습니다.";
+      } else {
+        const [lead, ...rest] = posts;
+        const href = (p) => `./post.html?slug=${encodeURIComponent(p.slug)}`;
+        box.className = "post-grid";
+        box.innerHTML = `
+          <article class="post-lead"><a href="${href(lead)}">
+            <div class="thumb">${lead.cover_url ? `<img src="${esc(lead.cover_url)}" alt="" loading="lazy">` : ""}</div>
+            <span class="cat">${esc(lead.category || "")}</span>
+            <h3>${esc(lead.title)}</h3>
+            <p>${esc(lead.excerpt || "")}</p>
+          </a></article>
+          <div class="post-side">${rest.map((p) => `
+            <article class="post-row"><a href="${href(p)}">
+              <span class="cat">${esc(p.category || "")}</span>
+              <h4>${esc(p.title)}</h4>
+              <span class="date">${fmtDate(p.published_at)}</span>
+            </a><a href="${href(p)}" class="thumb" tabindex="-1" aria-hidden="true">${p.cover_url ? `<img src="${esc(p.cover_url)}" alt="" loading="lazy">` : ""}</a></article>`).join("")}
+          </div>`;
+      }
+    } catch (e) {
+      box.className = "empty";
+      box.textContent = "글을 불러오지 못했습니다. config.js 의 Supabase 설정을 확인하세요.";
+      console.error(e);
+    }
+  </script>
+</body>
+</html>

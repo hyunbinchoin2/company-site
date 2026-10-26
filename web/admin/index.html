@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>뉴스레터 관리자</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📮</text></svg>">
+  <link rel="stylesheet" href="./admin.css">
+</head>
+<body>
+  <!-- 로그인 -->
+  <div class="login" id="login" hidden>
+    <form class="login-card" id="login-form">
+      <h1>관리자 로그인</h1>
+      <p id="login-company"></p>
+      <div class="field"><label for="l-email">이메일</label><input class="input" id="l-email" type="email" autocomplete="username" required></div>
+      <div class="field"><label for="l-pw">비밀번호</label><input class="input" id="l-pw" type="password" autocomplete="current-password" required></div>
+      <button class="btn" type="submit">로그인</button>
+      <div class="login-err" id="login-err" role="alert"></div>
+    </form>
+  </div>
+
+  <!-- 앱 -->
+  <div class="app" id="app" hidden>
+    <aside class="side">
+      <div class="side-brand" id="side-brand"></div>
+      <nav aria-label="관리자 메뉴">
+        <a href="#/compose" class="compose-link" data-nav="compose">
+          <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg><span>새 뉴스레터</span></a>
+        <a href="#/dashboard" data-nav="dashboard">
+          <svg viewBox="0 0 24 24"><path d="M4 13h6V4H4zM14 20h6v-9h-6zM4 20h6v-3H4zM14 7h6V4h-6z"/></svg><span>대시보드</span></a>
+        <a href="#/newsletters" data-nav="newsletters">
+          <svg viewBox="0 0 24 24"><path d="M3 6h18v12H3z"/><path d="m3 7 9 6 9-6"/></svg><span>발송 내역·통계</span></a>
+        <a href="#/posts" data-nav="posts">
+          <svg viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6z"/><path d="M9 12h7M9 16h7M9 8h3"/></svg><span>블로그 글</span></a>
+        <a href="#/subscribers" data-nav="subscribers">
+          <svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.8-3.6 3.4-5.5 6.5-5.5s5.7 1.9 6.5 5.5"/><path d="M16 4.6a3.5 3.5 0 0 1 0 6.8M18 14.8c2 .7 3.2 2.5 3.6 5.2"/></svg><span>구독자</span></a>
+      </nav>
+      <div class="side-foot">
+        <div id="who"></div>
+        <a href="../" target="_blank" rel="noopener">사이트 보기</a> ·
+        <button id="logout" type="button">로그아웃</button>
+      </div>
+    </aside>
+    <div class="main">
+      <div id="demo-note" class="demo-note" hidden>데모 모드: 샘플 데이터로 동작하며 실제 저장·발송은 되지 않습니다. 새로고침하면 초기화됩니다.</div>
+      <div class="topbar"><div><h1 id="page-title"></h1><div class="sub" id="page-sub"></div></div><div class="actions" id="page-actions"></div></div>
+      <div class="content" id="view"></div>
+    </div>
+  </div>
+
+  <div class="toasts" id="toasts" aria-live="polite"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/marked@12.0.2/marked.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/dompurify@3.1.6/dist/purify.min.js"></script>
+  <script type="module" src="./admin.js"></script>
+</body>
+</html>
