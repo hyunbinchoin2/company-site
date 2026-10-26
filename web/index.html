@@ -29,11 +29,10 @@
         <div class="flow">
           <ol class="flow-steps" id="steps" role="tablist" aria-label="대출 업무 단계"></ol>
           <div class="flow-panel" id="panel" role="tabpanel" aria-live="polite">
-            <div class="fp-text"><h3 id="fp-title"></h3><p id="fp-desc"></p></div>
+            <div class="fp-text"><h3 id="fp-title"></h3><ul class="fp-points" id="fp-points"></ul></div>
             <div class="fp-sols"><span class="fp-label">이 단계에서 쓰는 솔루션</span><div class="fp-chips" id="fp-chips"></div></div>
           </div>
         </div>
-        <p class="flow-note">NMPS/NFPS는 모든 단계에서 시스템 개발과 운영을 지원합니다.</p>
       </div>
     </section>
 
@@ -65,12 +64,6 @@
             <span class="kind">앱/웹 금융서비스</span>
             <h3>APP/WEB 금융서비스</h3>
             <p>사용자 중심의 모바일 환경에서 비대면 금융 서비스와 시스템 연계를 지원합니다.</p>
-          </div>
-          <div class="sol" id="sol-nmps" tabindex="0">
-            <span class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="m7 9 3 3-3 3M12 15h5"/></svg></span>
-            <span class="kind">개발 운영지원 시스템</span>
-            <h3>NMPS/NFPS</h3>
-            <p>금융 시스템의 개발과 운영을 지원합니다.</p>
           </div>
           <div class="sol" id="sol-fax" tabindex="0">
             <span class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 8V3h10v5"/><rect x="3" y="8" width="18" height="10" rx="2"/><path d="M7 14h10v7H7z"/></svg></span>
@@ -140,21 +133,54 @@
       </div>
     </section>
 
-    <!-- 인증 -->
-    <div class="certs">
+    <!-- 고객사 -->
+    <section class="sec clients" id="clients">
       <div class="wrap">
-        <div><h2>인증과 확인</h2><p>기술력과 보안 체계를 외부 기관으로부터 인정받았습니다.</p></div>
-        <ul class="cert-list">
-          <li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="9" r="6"/><path d="m9 14.5-1.5 7L12 19l4.5 2.5-1.5-7"/></svg>ISO27001 인증</li>
-          <li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="9" r="6"/><path d="m9 14.5-1.5 7L12 19l4.5 2.5-1.5-7"/></svg>혁신성장형 벤처기업 인증</li>
-          <li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="9" r="6"/><path d="m9 14.5-1.5 7L12 19l4.5 2.5-1.5-7"/></svg>강소기업 확인</li>
-          <li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="9" r="6"/><path d="m9 14.5-1.5 7L12 19l4.5 2.5-1.5-7"/></svg>경영혁신형 중소기업 확인</li>
-          <li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="9" r="6"/><path d="m9 14.5-1.5 7L12 19l4.5 2.5-1.5-7"/></svg>2020 기술역량우수기업 인증</li>
-          <li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="9" r="6"/><path d="m9 14.5-1.5 7L12 19l4.5 2.5-1.5-7"/></svg>특허 보유</li>
-          <li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="9" r="6"/><path d="m9 14.5-1.5 7L12 19l4.5 2.5-1.5-7"/></svg>한국산업기술진흥협회 회원사</li>
+        <div class="sec-head">
+          <div>
+            <h2>함께하는 고객사</h2>
+            <p>저축은행 최다 고객사를 보유하고 있습니다. 저축은행부터 인터넷은행, 핀테크, 공공기관까지 엔투소프트와 함께합니다.</p>
+          </div>
+        </div>
+        <ul class="client-grid">
+          <li><img src="./assets/img/clients/c01.png" alt="저축은행중앙회" title="저축은행중앙회" loading="lazy"></li>
+          <li><img src="./assets/img/clients/c02.png" alt="토스뱅크" title="토스뱅크" loading="lazy"></li>
+          <li><img src="./assets/img/clients/c03.png" alt="카카오뱅크" title="카카오뱅크" loading="lazy"></li>
+          <li><img src="./assets/img/clients/c04.png" alt="핀다" title="핀다" loading="lazy"></li>
+          <li><img src="./assets/img/clients/c05.png" alt="PFCT" title="PFCT" loading="lazy"></li>
+          <li><img src="./assets/img/clients/c06.png" alt="IBK저축은행" title="IBK저축은행" loading="lazy"></li>
+          <li><img src="./assets/img/clients/c07.png" alt="하나저축은행" title="하나저축은행" loading="lazy"></li>
+          <li><img src="./assets/img/clients/c08.png" alt="신한저축은행" title="신한저축은행" loading="lazy"></li>
+          <li><img src="./assets/img/clients/c09.png" alt="NH저축은행" title="NH저축은행" loading="lazy"></li>
+          <li><img src="./assets/img/clients/c10.png" alt="한화저축은행" title="한화저축은행" loading="lazy"></li>
+          <li><img src="./assets/img/clients/c11.png" alt="BNK저축은행" title="BNK저축은행" loading="lazy"></li>
+          <li><img src="./assets/img/clients/c12.png" alt="상상인플러스저축은행" title="상상인플러스저축은행" loading="lazy"></li>
+          <li><img src="./assets/img/clients/c13.png" alt="DB저축은행" title="DB저축은행" loading="lazy"></li>
+          <li><img src="./assets/img/clients/c14.png" alt="한국투자저축은행" title="한국투자저축은행" loading="lazy"></li>
+          <li><img src="./assets/img/clients/c15.png" alt="한국투자캐피탈" title="한국투자캐피탈" loading="lazy"></li>
+          <li><img src="./assets/img/clients/c16.png" alt="우정사업본부" title="우정사업본부" loading="lazy"></li>
+          <li><img src="./assets/img/clients/c17.png" alt="예가람저축은행" title="예가람저축은행" loading="lazy"></li>
+          <li><img src="./assets/img/clients/c18.png" alt="고려저축은행" title="고려저축은행" loading="lazy"></li>
+          <li><img src="./assets/img/clients/c19.png" alt="대신저축은행" title="대신저축은행" loading="lazy"></li>
+          <li><img src="./assets/img/clients/c20.png" alt="BMW 파이낸셜 서비스" title="BMW 파이낸셜 서비스" loading="lazy"></li>
+          <li><img src="./assets/img/clients/c21.png" alt="JT저축은행" title="JT저축은행" loading="lazy"></li>
+          <li><img src="./assets/img/clients/c22.png" alt="동양저축은행" title="동양저축은행" loading="lazy"></li>
+          <li><img src="./assets/img/clients/c23.png" alt="머스트삼일저축은행" title="머스트삼일저축은행" loading="lazy"></li>
+          <li><img src="./assets/img/clients/c24.png" alt="HB저축은행" title="HB저축은행" loading="lazy"></li>
+          <li><img src="./assets/img/clients/c25.png" alt="웰컴저축은행" title="웰컴저축은행" loading="lazy"></li>
+          <li><img src="./assets/img/clients/c26.png" alt="OSB저축은행" title="OSB저축은행" loading="lazy"></li>
+          <li><img src="./assets/img/clients/c27.png" alt="융창저축은행" title="융창저축은행" loading="lazy"></li>
+          <li><img src="./assets/img/clients/c28.png" alt="동원제일저축은행" title="동원제일저축은행" loading="lazy"></li>
+          <li><img src="./assets/img/clients/c29.png" alt="스마트저축은행" title="스마트저축은행" loading="lazy"></li>
+          <li><img src="./assets/img/clients/c30.png" alt="모아저축은행" title="모아저축은행" loading="lazy"></li>
+          <li><img src="./assets/img/clients/c31.png" alt="다올저축은행" title="다올저축은행" loading="lazy"></li>
+          <li><img src="./assets/img/clients/c32.png" alt="인성저축은행" title="인성저축은행" loading="lazy"></li>
+          <li><img src="./assets/img/clients/c33.png" alt="세람저축은행" title="세람저축은행" loading="lazy"></li>
+          <li><img src="./assets/img/clients/c34.png" alt="미소금융중앙재단" title="미소금융중앙재단" loading="lazy"></li>
+          <li><img src="./assets/img/clients/c35.png" alt="MS저축은행" title="MS저축은행" loading="lazy"></li>
         </ul>
       </div>
-    </div>
+    </section>
 
     <!-- 최근 소식 -->
     <section class="sec" id="posts">
@@ -220,12 +246,28 @@
       fax: ["Secure FAX", "fax"], image: ["Secure Image System", "image"], qcall: ["Q-call", "headset"],
     };
     const STEPS = [
-      { name: "상담·접수", desc: "고객이 앱이나 전화로 대출을 문의하고 신청합니다.", sols: ["app", "qcall"] },
-      { name: "심사", desc: "제출 서류를 받아 확인하고 고객의 신용을 평가합니다.", sols: ["ntree", "image", "fax"] },
-      { name: "실행", desc: "약정을 맺고 대출금을 지급한 뒤 계좌를 관리하기 시작합니다.", sols: ["ntree", "qupid"] },
-      { name: "사후관리", desc: "상환 일정과 연체 위험을 살피고 필요한 안내를 보냅니다.", sols: ["ntree", "qupid", "qcall"] },
-      { name: "회수", desc: "연체 채권을 관리하고 통지와 회수 절차를 진행합니다.", sols: ["ntree", "qupid"] },
+      { name: "상담·접수", points: [
+          "앱과 웹으로 고객의 대출 신청을 받을 수 있는 환경을 제공합니다.",
+          "공공마이데이터와 스크래핑 연동으로 대출 서류가 자동으로 제출됩니다."],
+        sols: ["app"] },
+      { name: "심사", points: [
+          "여신관리시스템의 심사원장에서 고객별 대출 승인 여부를 한눈에 판단합니다.",
+          "신용조회로 고객 정보를 확인해 정확한 승인 절차를 구현합니다."],
+        sols: ["ntree"] },
+      { name: "실행", points: [
+          "약정서를 전자약정으로 비대면 작성합니다.",
+          "약정부터 대출 실행까지 여신관리시스템 안에서 처리합니다."],
+        sols: ["ntree"] },
+      { name: "사후관리", points: [
+          "채권관리에 필요한 채권원장, 콜 시스템, 우편·전자문서 서비스를 제공합니다.",
+          "개인채무자보호법 대응 절차를 자동 프로세스로 구현했습니다."],
+        sols: ["qupid", "qcall"] },
+      { name: "회수", points: [
+          "연체채권을 관리할 때 고객에게 연락하는 솔루션을 제공합니다.",
+          "NPL 채권관리 전문 서비스까지 갖추고 있습니다."],
+        sols: ["qupid", "qcall"] },
     ];
+
     const stepsEl = document.getElementById("steps");
     const panel = document.getElementById("panel");
     stepsEl.innerHTML = STEPS.map((s, i) => `
@@ -248,7 +290,7 @@
       setTimeout(() => {
         const s = STEPS[i];
         document.getElementById("fp-title").textContent = s.name;
-        document.getElementById("fp-desc").textContent = s.desc;
+        document.getElementById("fp-points").innerHTML = s.points.map((t) => `<li>${t}</li>`).join("");
         document.getElementById("fp-chips").innerHTML = s.sols.map((k) =>
           `<a class="chip-sol" href="#sol-${k}">${ICON[SOL[k][1]]}${SOL[k][0]}</a>`).join("");
         panel.classList.remove("swap");
