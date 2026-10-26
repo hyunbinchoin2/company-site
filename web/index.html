@@ -3,9 +3,9 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>라이트하우스랩 | 제조 데이터 분석</title>
-  <meta name="description" content="공장 설비 데이터를 실시간으로 모아 불량과 고장을 미리 알려주는 산업용 분석 플랫폼">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔦</text></svg>">
+  <title>엔투소프트 | 금융시스템 전문 솔루션 IT기업</title>
+  <meta name="description" content="저축은행 여신관리시스템 구축 전문 기업 엔투소프트. 통합여신관리시스템 nTree.NEXT AI, 종합우편 DX서비스 QUPID 등 금융 IT 솔루션.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='18' fill='%23A42F2B'/></svg>">
   <link rel="stylesheet" href="./assets/css/site.css">
 </head>
 <body>
@@ -15,48 +15,111 @@
     <section class="hero">
       <div class="wrap">
         <div>
-          <h1 id="hero-title">고장 나기 전에<br>먼저 알려드립니다</h1>
-          <p id="hero-desc"></p>
+          <p class="hero-kicker">금융시스템 전문 솔루션 IT기업</p>
+          <h1>대출의 시작부터 회수까지,<br>하나의 시스템으로</h1>
+          <p class="lead">엔투소프트는 저축은행을 비롯한 금융기관의 대출 업무를 하나로 관리하는 통합여신관리시스템과 금융 IT 솔루션을 만듭니다.</p>
           <div class="hero-actions">
-            <a class="btn" href="#posts">고객 사례 보기</a>
-            <a class="btn ghost" id="contact-btn" href="#">도입 문의하기</a>
+            <a class="btn" href="#solutions">솔루션 보기</a>
+            <a class="btn ghost" id="contact-btn" href="tel:1877-1977">도입 문의 1877-1977</a>
+          </div>
+          <div class="facts">
+            <div><b>약 40곳</b><span>저축은행 여신관리시스템 구축</span></div>
+            <div><b>21년</b><span>금융 업무 한 분야 노하우</span></div>
+            <div><b>ISO27001</b><span>정보보호 국제 인증</span></div>
           </div>
         </div>
 
-        <div class="monitor" aria-label="설비 모니터링 화면 예시" role="img">
-          <div class="monitor-head"><span><b>프레스 2라인</b> 설비 상태</span><span class="live">실시간</span></div>
-          <div class="sensor"><span>진동 (X축)</span>
-            <svg viewBox="0 0 200 34" preserveAspectRatio="none"><path d="M0 20 L12 18 L24 21 L36 17 L48 19 L60 16 L72 20 L84 18 L96 19 L108 17 L120 20 L132 18 L144 19 L156 17 L168 20 L180 18 L200 19"/></svg>
-            <span class="val">2.1 mm/s</span></div>
-          <div class="sensor"><span>모터 온도</span>
-            <svg viewBox="0 0 200 34" preserveAspectRatio="none"><path d="M0 24 L20 23 L40 23 L60 22 L80 22 L100 21 L120 22 L140 21 L160 21 L180 20 L200 20"/></svg>
-            <span class="val">61.4 °C</span></div>
-          <div class="sensor warn"><span>베어링 #3</span>
-            <svg viewBox="0 0 200 34" preserveAspectRatio="none"><path d="M0 26 L20 25 L40 26 L60 24 L80 23 L100 21 L120 19 L140 15 L160 13 L180 9 L200 6"/></svg>
-            <span class="val">7.8 mm/s</span></div>
-          <div class="monitor-foot">베어링 #3 진동이 늘고 있습니다. 약 9일 안에 점검이 필요합니다.</div>
+        <div class="loan" role="img" aria-label="통합여신관리시스템 화면 예시: 대출 한 건이 상담부터 회수까지 관리되는 모습">
+          <div class="loan-head"><b>nTree.NEXT AI</b><small>화면 예시</small></div>
+          <div class="loan-acct"><span>개인신용대출</span><strong>계좌 2026-0418</strong></div>
+          <ol class="steps">
+            <li class="done"><i>✓</i>상담</li>
+            <li class="done"><i>✓</i>심사</li>
+            <li class="done"><i>✓</i>실행</li>
+            <li class="now"><i>4</i>사후관리</li>
+            <li><i>5</i>회수</li>
+          </ol>
+          <div class="ai-note">
+            <b>AI 알림</b>
+            최근 상환 패턴이 바뀌어 다음 달 연체 가능성이 높아졌습니다. 상환일 전에 안내문을 보내는 것을 권장합니다.
+            <br><span class="act">QUPID로 안내문 발송</span>
+          </div>
         </div>
       </div>
     </section>
 
-    <section class="capabilities" id="capabilities">
+    <section class="strengths" id="strengths">
       <div class="wrap">
-        <h2 class="section-title">설비 옆에서 하는 일</h2>
-        <p class="section-desc">이미 있는 PLC와 센서에 연결해 2주 안에 첫 리포트를 받아보실 수 있습니다.</p>
-        <div class="cap-list">
-          <div class="cap"><h3>데이터 수집</h3><p>PLC, 진동·온도 센서, MES 기록을 한곳에 모읍니다. 기존 장비를 바꿀 필요가 없습니다.</p></div>
-          <div class="cap"><h3>이상 징후 감지</h3><p>설비마다 정상 패턴을 학습해, 평소와 다른 움직임을 고장 전에 알려드립니다.</p></div>
-          <div class="cap"><h3>현장용 리포트</h3><p>교대가 끝날 때마다 생산량, 불량률, 점검할 설비를 한 장으로 정리해 드립니다.</p></div>
+        <h2 class="section-title">금융 업무를 아는 사람들이 만듭니다</h2>
+        <p class="section-desc">경험, 업무 이해, 전문 조직, 운영과 기술. 네 가지를 바탕으로 고객사의 사업 목표를 함께 이룹니다.</p>
+        <div class="strength-list">
+          <div class="strength"><h3>경험</h3><span class="en">Experience</span><ul>
+            <li>저축은행 40곳 가까이 여신관리시스템 구축</li>
+            <li>현업에서 꼭 필요한 금융 IT 솔루션 제공</li>
+            <li>모바일 웹·앱 개발과 유관기관 연동 경험 다수</li></ul></div>
+          <div class="strength"><h3>업무 이해</h3><span class="en">Understand</span><ul>
+            <li>금융 업무만 21년간 쌓아온 노하우</li>
+            <li>현업과 고객의 입장에서 설계한 솔루션</li>
+            <li>여신관리시스템부터 자체 솔루션까지 맞춤 제공</li></ul></div>
+          <div class="strength"><h3>전문 조직</h3><span class="en">Organization</span><ul>
+            <li>금융권 구축 경험이 있는 인재 중심의 조직</li>
+            <li>채널 UI/UX 경험이 풍부한 전문가 보유</li>
+            <li>금융 전문 개발자 양성 교육 프로그램 운영</li></ul></div>
+          <div class="strength"><h3>운영과 기술</h3><span class="en">Technology</span><ul>
+            <li>기획부터 개발 후 관리까지 책임지는 운영</li>
+            <li>ISO27001 기준의 개인정보 보안 체계</li>
+            <li>금융권 표준 개발 가이드라인 준수</li></ul></div>
         </div>
       </div>
     </section>
+
+    <section id="solutions">
+      <div class="wrap">
+        <h2 class="section-title">솔루션과 서비스</h2>
+        <p class="section-desc">대출 관리의 핵심 시스템부터 문서 발송, 보안, 비대면 채널까지 금융기관에 필요한 도구를 제공합니다.</p>
+        <div class="sol-feature">
+          <div class="sol-main">
+            <span class="kind">통합여신관리시스템</span>
+            <h3>nTree.NEXT AI</h3>
+            <p>금융기관마다 필수로 쓰는 채권관리를 중심으로 다양한 금융상품을 관리하고, 대출 업무를 편리하게 만드는 시스템입니다.</p>
+          </div>
+          <div class="sol-main">
+            <span class="kind">종합우편 DX서비스</span>
+            <h3>QUPID</h3>
+            <p>고객에게 보내는 문서를 전자우편과 전자문서로 발송하고, 배달 이력을 전산으로 관리하는 서비스입니다.</p>
+          </div>
+        </div>
+        <div class="sol-list">
+          <div class="sol-item"><h4>APP/WEB 금융서비스</h4><p>비대면 서비스와 시스템 연계를 지원하는 모바일 금융 플랫폼</p></div>
+          <div class="sol-item"><h4>NMPS/NFPS</h4><p>개발 운영지원 시스템</p></div>
+          <div class="sol-item"><h4>Secure FAX</h4><p>가상 FAX 서비스</p></div>
+          <div class="sol-item"><h4>Secure Image System</h4><p>이미지 보안 솔루션</p></div>
+          <div class="sol-item"><h4>Q-call</h4><p>AI 콜 어시스턴트 시스템</p></div>
+        </div>
+      </div>
+    </section>
+
+    <div class="certs">
+      <div class="wrap">
+        <div><h2>인증과 확인</h2><p>저축은행 최다 고객사를 보유한 기업으로서 기술과 보안을 인정받았습니다.</p></div>
+        <ul class="cert-list">
+          <li>ISO27001 인증</li>
+          <li>혁신성장형 벤처기업 인증</li>
+          <li>강소기업 확인</li>
+          <li>경영혁신형 중소기업 확인</li>
+          <li>2020 기술역량우수기업 인증</li>
+          <li>특허 보유</li>
+          <li>한국산업기술진흥협회 회원사</li>
+        </ul>
+      </div>
+    </div>
 
     <section id="posts">
       <div class="wrap">
         <div class="posts-head">
           <div>
             <h2 class="section-title">최근 소식</h2>
-            <p class="section-desc">고객 사례, 제품 업데이트, 현장 인사이트를 정리해 올립니다.</p>
+            <p class="section-desc">구축 사례, 솔루션 업데이트, 금융 IT 소식을 정리해 올립니다.</p>
           </div>
           <a class="btn ghost small" href="./blog.html">블로그 전체 보기</a>
         </div>
@@ -68,7 +131,7 @@
       <div class="wrap">
         <div>
           <h2 class="section-title">한 달에 한 번, 새 글을 메일로 받아보세요</h2>
-          <p class="section-desc">새로 올라온 사례와 업데이트만 골라 보내드립니다. 언제든 수신거부할 수 있습니다.</p>
+          <p class="section-desc">새로 올라온 구축 사례와 솔루션 소식만 골라 보내드립니다. 언제든 수신거부할 수 있습니다.</p>
         </div>
         <div id="sub-slot"></div>
       </div>
@@ -83,8 +146,8 @@
 
     mountChrome("home");
     document.title = `${C.name} | ${C.tagline}`;
-    document.getElementById("hero-desc").textContent = C.description;
-    document.getElementById("contact-btn").href = `mailto:${C.email}`;
+    document.getElementById("contact-btn").href = `tel:${C.phone}`;
+    document.getElementById("contact-btn").textContent = `도입 문의 ${C.phone}`;
     document.getElementById("sub-slot").innerHTML = subscribeFormHtml();
     bindSubscribeForms();
 
