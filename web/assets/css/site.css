@@ -71,8 +71,11 @@ h1, h2, h3, h4 { color: var(--ink); }
 .step[aria-selected="true"] { color: var(--ink); border-bottom-color: var(--brand); }
 .step[aria-selected="true"] .n { background: var(--brand); border-color: var(--brand); color: #fff; transform: scale(1.12); box-shadow: 0 0 0 7px rgba(164, 47, 43, .14); }
 
-.flow-panel { display: grid; grid-template-columns: 1fr 1.25fr; gap: 32px; align-items: center; padding: 28px 36px 32px; background: var(--surface); border-top: 1px solid var(--line); min-height: 172px; }
-.flow-panel h3 { margin: 0 0 6px; font-size: 22px; letter-spacing: -0.02em; }
+.flow-panel { display: grid; grid-template-columns: 1.5fr 1fr; gap: 40px; align-items: center; padding: 30px 36px 34px; background: var(--surface); border-top: 1px solid var(--line); min-height: 196px; }
+.flow-panel h3 { margin: 0 0 12px; font-size: 22px; letter-spacing: -0.02em; }
+.fp-points { margin: 0; padding: 0; list-style: none; display: grid; gap: 8px; }
+.fp-points li { position: relative; padding-left: 26px; font-size: 16px; color: var(--text); line-height: 1.6; }
+.fp-points li::before { content: ""; position: absolute; left: 0; top: 4px; width: 16px; height: 16px; border-radius: 50%; background: var(--brand-soft) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='m4.5 8.2 2.2 2.2 4.8-4.8' fill='none' stroke='%23A42F2B' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/16px no-repeat; }
 .flow-panel p { margin: 0; color: var(--steel); font-size: 15.5px; }
 .fp-text, .fp-sols { transition: opacity .2s, transform .25s var(--ease); }
 .flow-panel.swap .fp-text, .flow-panel.swap .fp-sols { opacity: 0; transform: translateY(6px); }
@@ -116,7 +119,7 @@ h1, h2, h3, h4 { color: var(--ink); }
 .sol.main .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 24px; }
 .sol.main .tags span { padding: 6px 12px; border-radius: 16px; background: rgba(255, 255, 255, .1); color: #fff; font-size: 13px; }
 
-.sol.ask { grid-column: span 2; flex-direction: row; align-items: center; justify-content: space-between; gap: 20px; background: #fff; border: 1px dashed #C9CCD3; }
+.sol.ask { grid-column: span 3; flex-direction: row; align-items: center; justify-content: space-between; gap: 20px; background: #fff; border: 1px dashed #C9CCD3; }
 .sol.ask h3 { font-size: 19px; }
 .sol.ask p { margin-top: 4px; }
 .sol.ask .call { flex: none; font-size: 22px; font-weight: 800; color: var(--brand); letter-spacing: -0.01em; transition: color .3s; }
@@ -147,15 +150,13 @@ h1, h2, h3, h4 { color: var(--ink); }
 .why-body li { position: relative; padding: 5px 0 5px 18px; font-size: 15.5px; }
 .why-body li::before { content: ""; position: absolute; left: 2px; top: 15px; width: 6px; height: 6px; border-radius: 50%; background: var(--brand); opacity: .55; }
 
-/* ---------- 인증 ---------- */
-.certs { padding: 64px 0; border-bottom: 1px solid var(--line); }
-.certs .wrap { display: grid; grid-template-columns: 240px 1fr; gap: 40px; align-items: center; }
-.certs h2 { margin: 0 0 6px; font-size: 22px; letter-spacing: -0.02em; }
-.certs .wrap > div > p { margin: 0; font-size: 15px; color: var(--steel); }
-.cert-list { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
-.cert-list li { display: flex; align-items: center; gap: 12px; padding: 14px 16px; border-radius: 12px; border: 1px solid var(--line); font-size: 14.5px; font-weight: 500; color: var(--ink); transition: border-color .2s, background .2s; }
-.cert-list li svg { flex: none; width: 22px; height: 22px; stroke: var(--brand); fill: none; stroke-width: 1.8; }
-.cert-list li:hover { border-color: var(--brand); background: var(--brand-soft); }
+/* ---------- 고객사 ---------- */
+.clients { border-bottom: 1px solid var(--line); }
+.client-grid { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
+.client-grid li { display: grid; place-items: center; height: 96px; padding: 12px 18px; border-radius: 14px; background: #fff; border: 1px solid var(--line); transition: border-color .25s, box-shadow .25s, transform .25s var(--ease); }
+.client-grid img { max-width: 100%; max-height: 48px; width: auto; height: auto; filter: grayscale(1); opacity: .62; transition: filter .25s, opacity .25s, transform .25s var(--ease); }
+.client-grid li:hover { border-color: #E2C9C7; box-shadow: 0 12px 28px rgba(26, 28, 34, .08); transform: translateY(-3px); }
+.client-grid li:hover img { filter: none; opacity: 1; transform: scale(1.04); }
 
 /* ---------- 최근 소식 ---------- */
 .news-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
@@ -268,14 +269,17 @@ h1, h2, h3, h4 { color: var(--ink); }
 /* ---------- 반응형 ---------- */
 @media (max-width: 1024px) {
   .sol-grid { grid-template-columns: repeat(2, 1fr); }
+  .sol.ask { grid-column: span 1; flex-direction: column; align-items: start; }
+  .client-grid { grid-template-columns: repeat(4, 1fr); }
   .why-grid { grid-template-columns: 1fr; }
-  .cert-list { grid-template-columns: repeat(2, 1fr); }
 }
 @media (max-width: 860px) {
   .hero { padding: 48px 0 64px; background: linear-gradient(180deg, #fff 0, #fff 40%, var(--surface) 40%); }
-  .hero-top, .contact .wrap, .subscribe .wrap, .certs .wrap { grid-template-columns: 1fr; gap: 28px; }
+  .hero-top, .contact .wrap, .subscribe .wrap { grid-template-columns: 1fr; gap: 28px; }
   .flow-panel { grid-template-columns: 1fr; gap: 18px; padding: 24px; }
   .news-grid { grid-template-columns: 1fr; }
+  .client-grid { grid-template-columns: repeat(3, 1fr); }
+  .client-grid li { height: 80px; padding: 10px 12px; }
   .sec { padding: 72px 0; }
   .sec-head { flex-direction: column; align-items: start; }
   .nav a:not(.btn) { display: none; }
@@ -298,11 +302,16 @@ h1, h2, h3, h4 { color: var(--ink); }
   .sol.main h3 { font-size: 28px; }
   .sol.ask { flex-direction: column; align-items: start; }
   .why-item { grid-template-columns: 1fr; gap: 14px; padding: 28px; }
-  .cert-list { grid-template-columns: 1fr; }
+  .client-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+  .client-grid img { max-height: 40px; }
   .sub-card { padding: 26px; }
   .foot-info span { display: block; margin-left: 0; }
 }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
   html { scroll-behavior: auto; }
+}
+/* 터치 화면에서는 마우스 올리기가 없으므로 로고를 처음부터 컬러로 */
+@media (hover: none) {
+  .client-grid img { filter: none; opacity: 1; }
 }
