@@ -154,9 +154,9 @@ h1, h2, h3, h4 { color: var(--ink); }
 .clients { border-bottom: 1px solid var(--line); }
 .client-grid { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
 .client-grid li { display: grid; place-items: center; height: 96px; padding: 12px 18px; border-radius: 14px; background: #fff; border: 1px solid var(--line); transition: border-color .25s, box-shadow .25s, transform .25s var(--ease); }
-.client-grid img { max-width: 100%; max-height: 48px; width: auto; height: auto; filter: grayscale(1); opacity: .62; transition: filter .25s, opacity .25s, transform .25s var(--ease); }
+.client-grid img { max-width: 100%; max-height: 48px; width: auto; height: auto; transition: transform .25s var(--ease); }
 .client-grid li:hover { border-color: #E2C9C7; box-shadow: 0 12px 28px rgba(26, 28, 34, .08); transform: translateY(-3px); }
-.client-grid li:hover img { filter: none; opacity: 1; transform: scale(1.04); }
+.client-grid li:hover img { transform: scale(1.04); }
 
 /* ---------- 최근 소식 ---------- */
 .news-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
@@ -310,8 +310,4 @@ h1, h2, h3, h4 { color: var(--ink); }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
   html { scroll-behavior: auto; }
-}
-/* 터치 화면에서는 마우스 올리기가 없으므로 로고를 처음부터 컬러로 */
-@media (hover: none) {
-  .client-grid img { filter: none; opacity: 1; }
 }
