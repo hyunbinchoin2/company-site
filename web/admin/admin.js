@@ -390,7 +390,7 @@ async function compose(id) {
     // 새로 만들 때: 최근 글 2개를 미리 골라두고 기본 문구를 채움
     const m = new Date().getMonth() + 1;
     st.subject = `${C.name} ${m}월 소식`;
-    st.intro = `이번 달에 새로 올라온 글을 모아 보내드립니다.\n관심 있는 글이 있다면 눌러서 전체 내용을 확인해 보세요.`;
+    st.intro = `엔투소프트의 소식과 최신 금융소식을 전달드려요.\n관심 있는 글이 있다면 눌러서 전체 내용을 확인해 보세요.`;
     st.post_ids = published.slice(0, 2).map((p) => p.id);
   }
   let dirty = !id;
