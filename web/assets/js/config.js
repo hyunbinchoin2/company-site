@@ -9,7 +9,7 @@ export const CONFIG = {
   SUPABASE_ANON_KEY: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Ind6Y3diZG11eXJlamx4bmFmc3JxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTI5ODM0NzQsImV4cCI6MjEwODU1OTQ3NH0.UHtFqUqaVnV2hDNDgWqYP4SgeQ5Lcqf-j3VKdBQT140", // anon(public) 키는 공개되어도 되는 키입니다. service_role 키는 절대 넣지 마세요.
 
   // GitHub Pages 주소 (끝에 / 없이). 뉴스레터 속 링크가 이 주소로 만들어집니다.
-  SITE_URL: "https://hyunbinchoin2.github.io/company-site",
+  SITE_URL: "https://news.n2soft.co.kr",
 
   COMPANY: {
     name: "엔투소프트",
