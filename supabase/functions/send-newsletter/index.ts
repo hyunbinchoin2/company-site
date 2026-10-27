@@ -19,8 +19,12 @@ const escapeHtml = (s: string) =>
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 const unsubUrl = (s: Sub) => `${FN}/unsubscribe?s=${s.id}&t=${s.token}`;
 
+// 메일 상단에 들어갈 발송 날짜 (한국 시간 기준, 예: 2026년 10월 27일)
+const sendDate = () =>
+  new Date().toLocaleDateString("ko-KR", { timeZone: "Asia/Seoul", year: "numeric", month: "long", day: "numeric" });
+
 function personalize(html: string, s: Sub, newsletterId: string, track: boolean) {
-  let out = html;
+  let out = html.replaceAll("{{SEND_DATE}}", sendDate());
   if (track) {
     // 본문의 모든 http(s) 링크를 클릭 추적 주소로 감싸기
     out = out.replace(/href="(https?:\/\/[^"]+)"/g, (_m, raw: string) => {

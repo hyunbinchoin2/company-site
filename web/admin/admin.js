@@ -369,7 +369,7 @@ async function stats(id) {
       html = buildNewsletterHtml({ ...nl, posts: ps, company: C, siteUrl: CONFIG.SITE_URL });
     }
     const w = window.open("", "_blank");
-    if (w) { w.document.write(previewHtml(html)); w.document.close(); }
+    if (w) { w.document.write(previewHtml(html, "홍길동", nl.sent_at || new Date())); w.document.close(); }
   };
 }
 
