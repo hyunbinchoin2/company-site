@@ -1,4 +1,7 @@
-// 링크 공유 썸네일 생성기 (GitHub Actions 가 배포 직전에 실행)
+// 링크 공유 썸네일 + 검색엔진용 파일 생성기 (GitHub Actions 가 배포 직전에 실행)
+//  - web/p/글주소.html : 글별 공유 썸네일 페이지
+//  - web/sitemap.xml   : 구글·네이버에 알려줄 페이지 목록
+//  - web/robots.txt    : 검색엔진 안내 (관리자 페이지 제외)
 //
 // 카카오톡·슬랙 등은 링크 미리보기를 만들 때 자바스크립트를 실행하지 않습니다.
 // 그래서 글마다 썸네일 정보가 박힌 작은 HTML(/p/글주소.html)을 미리 만들어 둡니다.
@@ -27,9 +30,33 @@ for (const f of await readdir(ROOT)) {
 }
 console.log(`사이트 주소: ${SITE_URL || "(config.js 에 SITE_URL 이 없습니다)"}`);
 
+// 검색엔진 파일 작성
+async function writeSeoFiles(posts) {
+  if (!SITE_URL) return;
+  await writeFile(`${ROOT}/robots.txt`,
+    `User-agent: *\nDisallow: /admin/\nDisallow: /unsubscribe.html\n\nSitemap: ${SITE_URL}/sitemap.xml\n`);
+  const today = new Date().toISOString().slice(0, 10);
+  const urls = [
+    { loc: `${SITE_URL}/`, lastmod: today },
+    { loc: `${SITE_URL}/blog.html`, lastmod: (posts[0]?.published_at || today).slice(0, 10) },
+    ...posts.filter((p) => /^[a-z0-9-]+$/.test(p.slug)).map((p) => ({
+      loc: `${SITE_URL}/post.html?slug=${p.slug}`,
+      lastmod: (p.updated_at || p.published_at || today).slice(0, 10),
+    })),
+  ];
+  const xml = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${urls.map((u) => `  <url><loc>${esc(u.loc)}</loc><lastmod>${u.lastmod}</lastmod></url>`).join("\n")}
+</urlset>
+`;
+  await writeFile(`${ROOT}/sitemap.xml`, xml);
+  console.log(`sitemap.xml 에 페이지 ${urls.length}개를 넣었습니다.`);
+}
+
 // 2) 공개된 글 목록 가져오기
 if (!SUPABASE_URL || !KEY) {
   console.log("Supabase 설정이 없어 글별 공유 페이지는 건너뜁니다.");
+  await writeSeoFiles([]);
   process.exit(0);
 }
 const headers = { apikey: KEY };
@@ -38,13 +65,14 @@ if (!KEY.startsWith("sb_")) headers.Authorization = `Bearer ${KEY}`;
 let posts = [];
 try {
   const res = await fetch(
-    `${SUPABASE_URL}/rest/v1/posts?select=slug,title,excerpt,cover_url&published=eq.true&order=published_at.desc`,
+    `${SUPABASE_URL}/rest/v1/posts?select=slug,title,excerpt,cover_url,published_at,updated_at&published=eq.true&order=published_at.desc`,
     { headers },
   );
   if (!res.ok) throw new Error(`${res.status} ${await res.text()}`);
   posts = await res.json();
 } catch (e) {
   console.log("글 목록을 가져오지 못했습니다. 공유 페이지 없이 배포합니다:", e.message);
+  await writeSeoFiles([]);
   process.exit(0);
 }
 
@@ -76,3 +104,4 @@ for (const p of posts) {
   await writeFile(`${ROOT}/p/${p.slug}.html`, html);
 }
 console.log(`글 공유 페이지 ${posts.length}개를 만들었습니다.`);
+await writeSeoFiles(posts);
