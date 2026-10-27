@@ -598,10 +598,14 @@ async function posts() {
           <td>${esc(p.category || "–")}</td>
           <td>${p.published ? `<span class="badge ok">공개</span>` : `<span class="badge">비공개</span>`}</td>
           <td class="num">${fmtDate(p.published_at)}</td>
-          <td class="num">${p.published ? `<a class="btn ghost sm" href="../post.html?slug=${encodeURIComponent(p.slug)}" target="_blank" rel="noopener" data-stop>사이트에서 보기</a>` : ""}</td>
+          <td class="num">${p.published ? `<button class="btn ghost sm" data-copy="${esc(CONFIG.SITE_URL)}/p/${esc(p.slug)}.html" data-stop>공유 링크 복사</button><a class="btn ghost sm" href="../post.html?slug=${encodeURIComponent(p.slug)}" target="_blank" rel="noopener" data-stop>사이트에서 보기</a>` : ""}</td>
         </tr>`).join("")}</tbody></table></div>`
     : `<div class="empty-state"><p>아직 쓴 글이 없습니다. 첫 글을 올리면 뉴스레터에 넣을 수 있습니다.</p><a class="btn" href="#/post/new">새 글 쓰기</a></div>`}</div>`;
   $$("[data-stop]", view).forEach((a) => a.addEventListener("click", (e) => e.stopPropagation()));
+  $$("[data-copy]", view).forEach((b) => b.addEventListener("click", async () => {
+    try { await navigator.clipboard.writeText(b.dataset.copy); toast("공유 링크를 복사했습니다. 새 글은 최대 30분 뒤부터 썸네일이 보입니다."); }
+    catch { prompt("아래 주소를 복사하세요", b.dataset.copy); }
+  }));
   bindRowLinks();
 }
 

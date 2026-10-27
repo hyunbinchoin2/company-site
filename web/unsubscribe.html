@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>뉴스레터 수신거부</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='18' fill='%23A42F2B'/></svg>">
+  <link rel="stylesheet" href="./assets/css/site.css">
+</head>
+<body>
+  <div data-header></div>
+  <main class="notice"><div class="wrap" id="box"></div></main>
+  <div data-footer></div>
+  <script type="module">
+    import { C, mountChrome } from "./assets/js/site.js";
+    mountChrome("");
+    const status = new URLSearchParams(location.search).get("status");
+    const box = document.getElementById("box");
+    const msg = {
+      ok: ["수신거부되었습니다", `앞으로 ${C.name} 뉴스레터를 보내지 않습니다. 다시 받고 싶으시면 언제든 홈페이지에서 구독해 주세요.`],
+      fail: ["처리하지 못했습니다", "이미 수신거부되었거나 구독 정보가 없는 주소입니다."],
+      invalid: ["잘못된 링크입니다", "메일 하단의 수신거부 링크를 다시 눌러주세요."],
+    }[status] || ["뉴스레터 수신거부", "메일 하단의 수신거부 링크를 눌러주세요."];
+    box.innerHTML = `<h1>${msg[0]}</h1><p>${msg[1]}</p><a class="btn" href="./">홈페이지로 가기</a>`;
+  </script>
+</body>
+</html>

@@ -311,3 +311,14 @@ h1, h2, h3, h4 { color: var(--ink); }
   *, *::before, *::after { animation: none !important; transition: none !important; }
   html { scroll-behavior: auto; }
 }
+
+/* ---------- 글 상세: 공유 버튼 ---------- */
+.article-meta { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+.share-btn { display: inline-flex; align-items: center; gap: 8px; height: 38px; padding: 0 16px; border-radius: 19px; border: 1px solid var(--line); background: #fff; font: 600 14px var(--font); color: var(--text); cursor: pointer; transition: border-color .2s, color .2s, background .2s; }
+.share-btn svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 1.8; }
+.share-btn:hover { border-color: var(--brand); color: var(--brand); background: var(--brand-soft); }
+
+/* ---------- 수신거부 안내 ---------- */
+.notice { padding: 120px 0 140px; text-align: center; }
+.notice h1 { margin: 0 0 12px; font-size: clamp(28px, 4vw, 38px); letter-spacing: -0.03em; }
+.notice p { margin: 0 auto 28px; max-width: 30em; color: var(--steel); }

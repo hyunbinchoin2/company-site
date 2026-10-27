@@ -3,9 +3,18 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>블로그</title>
-  <meta property="og:type" content="article">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔦</text></svg>">
+  <title>블로그 | 엔투소프트</title>
+  <!-- 링크 공유 썸네일 (__SITE_URL__ 은 배포할 때 config.js 의 SITE_URL 로 자동 교체) -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="엔투소프트">
+  <meta property="og:title" content="엔투소프트 블로그">
+  <meta property="og:description" content="저축은행 여신관리시스템 구축 전문 기업. 통합여신관리시스템 nTree.NEXT AI, 종합우편 DX서비스 QUPID 등 금융 IT 솔루션을 만듭니다.">
+  <meta property="og:image" content="__SITE_URL__/assets/img/og-default.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:url" content="__SITE_URL__/blog.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='18' fill='%23A42F2B'/></svg>">
   <link rel="stylesheet" href="./assets/css/site.css">
 </head>
 <body>
@@ -20,6 +29,7 @@
   <script type="module">
     import { C, esc, fmtDate, mountChrome, bindSubscribeForms, subscribeFormHtml } from "./assets/js/site.js";
     import { getPostBySlug, logPageView } from "./assets/js/api.js";
+    import { CONFIG } from "./assets/js/config.js";
 
     mountChrome("blog");
     const params = new URLSearchParams(location.search);
@@ -32,13 +42,16 @@
         <p>주소가 바뀌었거나 비공개로 전환된 글입니다.</p><a class="btn" href="./blog.html">블로그 목록으로</a></div>`;
     } else {
       document.title = `${post.title} | ${C.name}`;
-      document.querySelector('meta[property="og:type"]').insertAdjacentHTML("afterend",
-        `<meta property="og:title" content="${esc(post.title)}"><meta name="description" content="${esc(post.excerpt || "")}">`);
       el.innerHTML = `
         <div class="article-inner">
           <span class="cat">${esc(post.category || "")}</span>
           <h1>${esc(post.title)}</h1>
-          <span class="date">${fmtDate(post.published_at)}</span>
+          <div class="article-meta">
+            <span class="date">${fmtDate(post.published_at)}</span>
+            <button class="share-btn" id="share" type="button">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5" r="2.5"/><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="19" r="2.5"/><path d="m8.2 10.8 7.6-4.4M8.2 13.2l7.6 4.4"/></svg>
+              <span>공유하기</span></button>
+          </div>
         </div>
         ${post.cover_url ? `<div class="cover"><img src="${esc(post.cover_url)}" alt=""></div>` : `<div style="height:32px"></div>`}
         <div class="article-inner prose">${DOMPurify.sanitize(marked.parse(post.content || ""))}</div>
@@ -48,6 +61,22 @@
           ${subscribeFormHtml()}
         </aside>`;
       bindSubscribeForms();
+
+      // 공유: 썸네일이 붙는 공유용 주소(/p/글주소.html)를 씁니다
+      const shareUrl = `${CONFIG.SITE_URL}/p/${post.slug}.html`;
+      const btn = document.getElementById("share");
+      btn.addEventListener("click", async () => {
+        if (navigator.share && matchMedia("(pointer: coarse)").matches) {
+          try { await navigator.share({ title: post.title, text: post.excerpt || "", url: shareUrl }); return; } catch { return; }
+        }
+        try {
+          await navigator.clipboard.writeText(shareUrl);
+          btn.querySelector("span").textContent = "링크를 복사했습니다";
+        } catch {
+          prompt("아래 주소를 복사하세요", shareUrl);
+        }
+        setTimeout(() => (btn.querySelector("span").textContent = "공유하기"), 2200);
+      });
       // 조회 기록 (뉴스레터에서 들어왔는지 구분)
       logPageView(post.slug, params.get("utm_source")).catch(() => {});
     }
