@@ -322,3 +322,14 @@ h1, h2, h3, h4 { color: var(--ink); }
 .notice { padding: 120px 0 140px; text-align: center; }
 .notice h1 { margin: 0 0 12px; font-size: clamp(28px, 4vw, 38px); letter-spacing: -0.03em; }
 .notice p { margin: 0 auto 28px; max-width: 30em; color: var(--steel); }
+
+/* ---------- 글 본문: 표 · 사진 설명 ---------- */
+.prose .table-wrap { margin: 1.8em 0; overflow-x: auto; border: 1px solid var(--line); border-radius: 12px; }
+.prose table { width: 100%; border-collapse: collapse; font-size: 15.5px; line-height: 1.6; min-width: 480px; }
+.prose th, .prose td { padding: 13px 16px; text-align: left; border-bottom: 1px solid var(--line); vertical-align: top; }
+.prose th { background: var(--surface); font-weight: 700; color: var(--ink); white-space: nowrap; }
+.prose tr:last-child td { border-bottom: 0; }
+.prose tbody tr:hover td { background: #FAFAFB; }
+.prose figure { margin: 1.8em 0; }
+.prose figure img { margin: 0; width: 100%; }
+.prose figcaption { margin-top: 10px; font-size: 14px; color: var(--steel); text-align: center; }

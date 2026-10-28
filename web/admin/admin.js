@@ -633,7 +633,18 @@ async function postEditor(id) {
         <div class="field"><label for="e-excerpt">요약 <span class="count" id="c-ex"></span></label>
           <textarea class="textarea" id="e-excerpt" rows="2" maxlength="160">${esc(p.excerpt || "")}</textarea>
           <div class="help">블로그 목록과 뉴스레터에 제목 아래로 들어갑니다.</div></div>
-        <div class="field"><label>본문 <span class="count">마크다운 · ## 제목, **굵게**, - 목록, &gt; 인용, ![설명](이미지주소)</span></label>
+        <div class="field"><label>본문 <span class="count">사진은 본문 칸에 끌어다 놓거나 붙여넣어도 올라갑니다</span></label>
+          <div class="md-tools" role="toolbar" aria-label="본문 도구">
+            <button type="button" data-md="h2" title="소제목">소제목</button>
+            <button type="button" data-md="bold" title="굵게"><b>굵게</b></button>
+            <button type="button" data-md="list" title="목록">• 목록</button>
+            <button type="button" data-md="quote" title="인용">“ 인용</button>
+            <span class="sep"></span>
+            <button type="button" data-md="image" class="strong">사진 넣기</button>
+            <button type="button" data-md="table" class="strong">표 넣기</button>
+            <button type="button" data-md="link">링크</button>
+            <input type="file" id="img-file" accept="image/*" hidden>
+          </div>
           <div class="md-split"><textarea class="textarea mono" id="e-content">${esc(p.content || "")}</textarea><div class="md-preview prose" id="e-prev"></div></div></div>
       </div></div>
       <div class="row">
@@ -645,7 +656,9 @@ async function postEditor(id) {
             <datalist id="cats">${cats.map((c) => `<option value="${esc(c)}">`).join("")}</datalist></div>
           <div class="field"><label for="e-slug">주소 (영문)</label><input class="input" id="e-slug" value="${esc(p.slug)}">
             <div class="help">post.html?slug=<b id="slug-show">${esc(p.slug)}</b></div></div>
-          <div class="field"><label for="e-cover">대표 이미지 주소</label><input class="input" id="e-cover" value="${esc(p.cover_url || "")}" placeholder="https://…">
+          <div class="field"><label for="e-cover">대표 이미지</label>
+            <div style="display:flex;gap:6px"><input class="input" id="e-cover" value="${esc(p.cover_url || "")}" placeholder="https://… 또는 오른쪽 버튼으로 올리기"><button type="button" class="btn line" id="cover-up" style="height:auto">올리기</button></div>
+            <input type="file" id="cover-file" accept="image/*" hidden>
             <div class="cover-prev" id="cover-prev"></div>
             <div class="help">가로로 긴 이미지(16:10)가 잘 어울립니다. 뉴스레터에도 그대로 들어갑니다.</div></div>
         </div></div>
@@ -666,6 +679,87 @@ async function postEditor(id) {
     if (!slugTouched) { $("#e-slug").value = slugify(e.target.value); upd(); }
   });
   upd();
+
+  /* ---- 본문 편집 도구 ---- */
+  const ta = $("#e-content");
+  const insert = (before, after = "", placeholder = "") => {
+    const a = ta.selectionStart, b = ta.selectionEnd;
+    const sel = ta.value.slice(a, b) || placeholder;
+    ta.setRangeText(before + sel + after, a, b, "end");
+    if (!ta.value.slice(a, b).length && placeholder) {
+      ta.selectionStart = a + before.length; ta.selectionEnd = a + before.length + sel.length;
+    }
+    ta.focus(); upd();
+  };
+  const block = (text) => {
+    const a = ta.selectionStart;
+    const before = ta.value.slice(0, a);
+    const pre = !before || before.endsWith("\n\n") ? "" : before.endsWith("\n") ? "\n" : "\n\n";
+    ta.setRangeText(`${pre}${text}\n`, a, ta.selectionEnd, "end");
+    ta.focus(); upd();
+  };
+  const linePrefix = (prefix) => {
+    const a = ta.value.lastIndexOf("\n", ta.selectionStart - 1) + 1;
+    ta.setRangeText(prefix, a, a, "end"); ta.focus(); upd();
+  };
+  const TABLE = `| 항목 | 내용 | 비고 |
+| --- | --- | --- |
+| 예시 1 | 내용을 입력하세요 |  |
+| 예시 2 | 내용을 입력하세요 |  |`;
+
+  async function uploadInto(files) {
+    for (const f of files) {
+      const mark = `![업로드 중: ${f.name}]()`;
+      block(mark);
+      try {
+        const url = await api.uploadImage(f);
+        ta.value = ta.value.replace(mark, `![사진 설명을 입력하세요](${url})`);
+        toast("사진을 넣었습니다. '사진 설명' 부분을 고치면 사진 아래 설명으로 나옵니다.");
+      } catch (err) {
+        ta.value = ta.value.replace(mark + "\n", "");
+        toast(err.message, true);
+      }
+      upd();
+    }
+  }
+
+  $(".md-tools").addEventListener("click", (e) => {
+    const k = e.target.closest("[data-md]")?.dataset.md;
+    if (!k) return;
+    if (k === "h2") linePrefix("## ");
+    if (k === "bold") insert("**", "**", "굵게 할 글자");
+    if (k === "list") linePrefix("- ");
+    if (k === "quote") linePrefix("> ");
+    if (k === "table") block(TABLE);
+    if (k === "link") insert("[", "](https://)", "링크 글자");
+    if (k === "image") $("#img-file").click();
+  });
+  $("#img-file").addEventListener("change", (e) => { uploadInto([...e.target.files]); e.target.value = ""; });
+  ta.addEventListener("dragover", (e) => { if ([...e.dataTransfer.types].includes("Files")) { e.preventDefault(); ta.classList.add("drop"); } });
+  ta.addEventListener("dragleave", () => ta.classList.remove("drop"));
+  ta.addEventListener("drop", (e) => {
+    const files = [...e.dataTransfer.files].filter((f) => f.type.startsWith("image/"));
+    ta.classList.remove("drop");
+    if (!files.length) return;
+    e.preventDefault();
+    ta.selectionStart = ta.selectionEnd = ta.value.length;
+    uploadInto(files);
+  });
+  ta.addEventListener("paste", (e) => {
+    const files = [...e.clipboardData.files].filter((f) => f.type.startsWith("image/"));
+    if (files.length) { e.preventDefault(); uploadInto(files); }
+  });
+
+  /* ---- 대표 이미지 올리기 ---- */
+  $("#cover-up").onclick = () => $("#cover-file").click();
+  $("#cover-file").addEventListener("change", async (e) => {
+    const f = e.target.files[0]; e.target.value = "";
+    if (!f) return;
+    const btn = $("#cover-up"); btn.disabled = true; btn.textContent = "올리는 중";
+    try { $("#e-cover").value = await api.uploadImage(f); upd(); toast("대표 이미지를 올렸습니다."); }
+    catch (err) { toast(err.message, true); }
+    btn.disabled = false; btn.textContent = "올리기";
+  });
 
   $("#save").onclick = async () => {
     const data = {

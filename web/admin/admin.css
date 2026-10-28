@@ -193,6 +193,20 @@ table.t { width: 100%; border-collapse: collapse; }
 .switch input:checked { background: var(--ok); }
 .switch input:checked::after { transform: translateX(16px); }
 
+/* 본문 편집 도구 */
+.md-tools { display: flex; flex-wrap: wrap; gap: 4px; align-items: center; padding: 6px; border: 1px solid var(--line-strong); border-bottom: 0; border-radius: 8px 8px 0 0; background: #F7F8FA; }
+.md-tools button { height: 30px; padding: 0 10px; border: 0; border-radius: 6px; background: transparent; font-size: 13px; color: var(--text); cursor: pointer; }
+.md-tools button:hover { background: #E6E8ED; }
+.md-tools button.strong { background: #fff; box-shadow: inset 0 0 0 1px var(--line-strong); font-weight: 600; }
+.md-tools button.strong:hover { box-shadow: inset 0 0 0 1px var(--brand); color: var(--brand); }
+.md-tools .sep { width: 1px; height: 18px; background: var(--line-strong); margin: 0 4px; }
+.md-tools + .md-split { border-radius: 0 0 8px 8px; }
+.md-split .textarea.drop { background: var(--brand-soft); }
+.md-preview table, .prose table { width: 100%; border-collapse: collapse; font-size: .92em; margin: 1em 0; }
+.md-preview th, .md-preview td { border: 1px solid var(--line); padding: 7px 10px; text-align: left; }
+.md-preview th { background: #F5F6F9; }
+.md-preview img + em, .md-preview figcaption { color: var(--mute); }
+
 /* 툴바/필터 */
 .toolbar { display: flex; gap: 10px; align-items: center; padding: 12px 20px; border-bottom: 1px solid var(--line); flex-wrap: wrap; }
 .toolbar .input { max-width: 280px; height: 34px; padding: 6px 12px; }

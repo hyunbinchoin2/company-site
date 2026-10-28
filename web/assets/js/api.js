@@ -183,6 +183,40 @@ export async function deletePost(id) {
 }
 
 /* ------------------------------------------------------------------ */
+/*  관리자: 이미지 업로드 (Supabase Storage 의 post-images 보관함)        */
+/* ------------------------------------------------------------------ */
+// 큰 사진은 가로 1600px 이하 JPG 로 줄여서 올립니다 (메일·웹 속도용).
+async function shrink(file, max = 1600) {
+  if (!/^image\/(jpeg|png|webp)$/.test(file.type)) return file; // gif·svg 는 그대로
+  const img = await createImageBitmap(file);
+  if (img.width <= max && file.size < 900 * 1024) return file;
+  const scale = Math.min(1, max / img.width);
+  const canvas = document.createElement("canvas");
+  canvas.width = Math.round(img.width * scale);
+  canvas.height = Math.round(img.height * scale);
+  const ctx = canvas.getContext("2d");
+  ctx.fillStyle = "#fff"; ctx.fillRect(0, 0, canvas.width, canvas.height);
+  ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+  const blob = await new Promise((r) => canvas.toBlob(r, "image/jpeg", 0.86));
+  return new File([blob], file.name.replace(/\.\w+$/, "") + ".jpg", { type: "image/jpeg" });
+}
+
+export async function uploadImage(file) {
+  if (!file.type.startsWith("image/")) throw new Error("이미지 파일만 올릴 수 있습니다.");
+  const f = await shrink(file);
+  if (f.size > 5 * 1024 * 1024) throw new Error("이미지가 너무 큽니다. 5MB 이하로 올려주세요.");
+  if (IS_DEMO) { await wait(400); return URL.createObjectURL(f); }
+  const ext = (f.name.split(".").pop() || "jpg").toLowerCase().replace(/[^a-z0-9]/g, "");
+  const path = `${new Date().toISOString().slice(0, 7)}/${Date.now()}-${Math.random().toString(36).slice(2, 7)}.${ext}`;
+  const { error } = await sb.storage.from("post-images").upload(path, f, { contentType: f.type, cacheControl: "31536000" });
+  if (error) {
+    if (/bucket/i.test(error.message)) throw new Error("이미지 보관함이 없습니다. README의 'storage.sql'을 먼저 실행하세요.");
+    throw new Error(error.message);
+  }
+  return sb.storage.from("post-images").getPublicUrl(path).data.publicUrl;
+}
+
+/* ------------------------------------------------------------------ */
 /*  관리자: 구독자                                                       */
 /* ------------------------------------------------------------------ */
 export async function listSubscribers() {

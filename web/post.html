@@ -62,6 +62,22 @@
         </aside>`;
       bindSubscribeForms();
 
+      // 표는 휴대폰에서 옆으로 밀어 볼 수 있게, 사진은 설명(대체 글)을 사진 아래에 표시
+      const prose = el.querySelector(".prose");
+      prose.querySelectorAll("table").forEach((t) => {
+        const w = document.createElement("div"); w.className = "table-wrap";
+        t.replaceWith(w); w.append(t);
+      });
+      prose.querySelectorAll("img").forEach((img) => {
+        const alt = (img.getAttribute("alt") || "").trim();
+        if (!alt || alt === "사진 설명을 입력하세요") return;
+        const fig = document.createElement("figure");
+        const host = img.parentElement.tagName === "P" && img.parentElement.childNodes.length === 1 ? img.parentElement : img;
+        host.replaceWith(fig);
+        fig.append(img);
+        fig.insertAdjacentHTML("beforeend", `<figcaption>${esc(alt)}</figcaption>`);
+      });
+
       // 공유: 썸네일이 붙는 공유용 주소(/p/글주소.html)를 씁니다
       const shareUrl = `${CONFIG.SITE_URL}/p/${post.slug}.html`;
       const btn = document.getElementById("share");
