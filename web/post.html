@@ -3,11 +3,11 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>블로그 | 엔투소프트</title>
+  <title>금융소식 | 엔투소프트</title>
   <!-- 링크 공유 썸네일 (__SITE_URL__ 은 배포할 때 config.js 의 SITE_URL 로 자동 교체) -->
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="엔투소프트">
-  <meta property="og:title" content="엔투소프트 블로그">
+  <meta property="og:title" content="엔투소프트 금융소식">
   <meta property="og:description" content="저축은행 여신관리시스템 구축 전문 기업. 통합여신관리시스템 nTree.NEXT AI, 종합우편 DX서비스 QUPID 등 금융 IT 솔루션을 만듭니다.">
   <meta property="og:image" content="__SITE_URL__/assets/img/og-default.png">
   <meta property="og:image:width" content="1200">
@@ -39,7 +39,7 @@
     const post = slug ? await getPostBySlug(slug).catch(() => null) : null;
     if (!post) {
       el.innerHTML = `<div class="article-inner"><h1>글을 찾을 수 없습니다</h1>
-        <p>주소가 바뀌었거나 비공개로 전환된 글입니다.</p><a class="btn" href="./blog.html">블로그 목록으로</a></div>`;
+        <p>주소가 바뀌었거나 비공개로 전환된 글입니다.</p><a class="btn" href="./blog.html">금융소식 목록으로</a></div>`;
     } else {
       document.title = `${post.title} | ${C.name}`;
       el.innerHTML = `

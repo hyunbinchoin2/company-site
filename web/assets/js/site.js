@@ -25,7 +25,7 @@ export function mountChrome(current) {
       <nav class="nav" aria-label="주 메뉴">
         <a href="./#solutions">솔루션</a>
         <a href="./#why">회사 소개</a>
-        <a href="./blog.html" ${current === "blog" ? 'aria-current="page"' : ""}>블로그</a>
+        <a href="./blog.html" ${current === "blog" ? 'aria-current="page"' : ""}>금융소식</a>
         <a href="./#contact">도입 문의</a>
         <a class="btn small" href="#subscribe">뉴스레터 구독</a>
       </nav>

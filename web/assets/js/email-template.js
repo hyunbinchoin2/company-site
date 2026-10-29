@@ -91,12 +91,12 @@ export function buildNewsletterHtml({ subject, preheader, intro, posts, company,
   ${leadBlock}
   ${restBlock}
 
-  <!-- 블로그 바로가기 -->
+  <!-- 금융소식 바로가기 -->
   <tr><td class="px" align="center" style="padding:56px 36px 52px">
-    <p style="margin:0 0 18px;font:400 14px/1.8 ${font};color:${mute}">지난 소식은 블로그에서 모두 볼 수 있습니다.</p>
+    <p style="margin:0 0 18px;font:400 14px/1.8 ${font};color:${mute}">지난 소식은 금융소식 페이지에서 모두 볼 수 있습니다.</p>
     <table role="presentation" cellpadding="0" cellspacing="0"><tr>
       <td style="border:1px solid ${ink};border-radius:8px">
-        <a href="${siteUrl}/blog.html?utm_source=newsletter" style="display:inline-block;padding:13px 24px;font:700 14px/1 ${font};color:${ink};text-decoration:none">블로그 바로가기</a>
+        <a href="${siteUrl}/blog.html?utm_source=newsletter" style="display:inline-block;padding:13px 24px;font:700 14px/1 ${font};color:${ink};text-decoration:none">금융소식 바로가기</a>
       </td>
     </tr></table>
   </td></tr>

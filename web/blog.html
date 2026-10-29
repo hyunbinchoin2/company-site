@@ -3,12 +3,12 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>블로그 | 엔투소프트</title>
+  <title>금융소식 | 엔투소프트</title>
   <meta name="description" content="엔투소프트의 구축 사례, 솔루션 업데이트, 금융 IT 소식">
   <!-- 링크 공유 썸네일 (__SITE_URL__ 은 배포할 때 config.js 의 SITE_URL 로 자동 교체) -->
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="엔투소프트">
-  <meta property="og:title" content="블로그 | 엔투소프트">
+  <meta property="og:title" content="금융소식 | 엔투소프트">
   <meta property="og:description" content="엔투소프트의 구축 사례, 솔루션 업데이트, 금융 IT 소식">
   <meta property="og:image" content="__SITE_URL__/assets/img/og-default.png">
   <meta property="og:image:width" content="1200">
@@ -23,7 +23,7 @@
   <main>
     <div class="wrap">
       <header class="page-head">
-        <h1>블로그</h1>
+        <h1>금융소식</h1>
         <p>구축 사례, 솔루션 업데이트, 금융 IT 소식</p>
         <div class="filters" id="filters" role="group" aria-label="분류"></div>
       </header>
@@ -47,7 +47,7 @@
     import { listPublishedPosts } from "./assets/js/api.js";
 
     mountChrome("blog");
-    document.title = `블로그 | ${C.name}`;
+    document.title = `금융소식 | ${C.name}`;
     document.getElementById("sub-slot").innerHTML = subscribeFormHtml();
     bindSubscribeForms();
 

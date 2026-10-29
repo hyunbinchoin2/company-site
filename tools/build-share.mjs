@@ -82,7 +82,7 @@ for (const p of posts) {
   if (!/^[a-z0-9-]+$/.test(p.slug)) continue;
   const target = `../post.html?slug=${p.slug}`;
   const img = /^https?:\/\//.test(p.cover_url || "") ? p.cover_url : DEFAULT_IMG;
-  const desc = p.excerpt || `${NAME} 블로그`;
+  const desc = p.excerpt || `${NAME} 금융소식`;
   const html = `<!doctype html>
 <html lang="ko"><head>
 <meta charset="utf-8">

@@ -83,7 +83,7 @@ function linkLabel(url, posts) {
     const slug = u.searchParams.get("slug");
     const p = slug && posts.find((x) => x.slug === slug);
     if (p) return p.title;
-    if (u.pathname.endsWith("blog.html")) return "블로그 목록";
+    if (u.pathname.endsWith("blog.html")) return "금융소식 목록";
     return u.hostname + u.pathname;
   } catch { return url; }
 }
@@ -428,7 +428,7 @@ async function compose(id) {
                 <span class="meta"><b>${esc(p.title)}</b><small>${esc(p.category || "")} ${fmtDate(p.published_at)}</small></span>
               </label>`).join("")}</div>
               <ol class="order" id="order"></ol>`
-            : `<div class="empty-state"><p>공개된 블로그 글이 없습니다. 글을 먼저 올려주세요.</p><a class="btn line" href="#/post/new">글 쓰기</a></div>`}
+            : `<div class="empty-state"><p>공개된 금융소식 글이 없습니다. 글을 먼저 올려주세요.</p><a class="btn line" href="#/post/new">글 쓰기</a></div>`}
           </div>
         </div>
       </div>
@@ -584,10 +584,10 @@ async function compose(id) {
 }
 
 /* ------------------------------------------------------------------ */
-/*  블로그 글                                                            */
+/*  금융소식 글                                                          */
 /* ------------------------------------------------------------------ */
 async function posts() {
-  setHeader("블로그 글", "공개한 글만 사이트와 뉴스레터에 나옵니다", `<a class="btn" href="#/post/new">새 글 쓰기</a>`);
+  setHeader("금융소식 글", "공개한 글만 사이트와 뉴스레터에 나옵니다", `<a class="btn" href="#/post/new">새 글 쓰기</a>`);
   const list = await api.listAllPosts();
   view.innerHTML = `<div class="panel">${list.length ? `
     <div class="table-wrap"><table class="t">
@@ -632,7 +632,7 @@ async function postEditor(id) {
         <div class="field"><label for="e-title">제목</label><input class="input" id="e-title" value="${esc(p.title)}" style="font-size:17px;font-weight:600"></div>
         <div class="field"><label for="e-excerpt">요약 <span class="count" id="c-ex"></span></label>
           <textarea class="textarea" id="e-excerpt" rows="2" maxlength="160">${esc(p.excerpt || "")}</textarea>
-          <div class="help">블로그 목록과 뉴스레터에 제목 아래로 들어갑니다.</div></div>
+          <div class="help">금융소식 목록과 뉴스레터에 제목 아래로 들어갑니다.</div></div>
         <div class="field"><label>본문 <span class="count">사진은 본문 칸에 끌어다 놓거나 붙여넣어도 올라갑니다</span></label>
           <div class="md-tools" role="toolbar" aria-label="본문 도구">
             <button type="button" data-md="h2" title="소제목">소제목</button>
