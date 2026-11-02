@@ -9,14 +9,9 @@ export const fmtDate = (iso) =>
 
 document.documentElement.style.setProperty("--brand", C.brandColor);
 
-// 브라우저 탭 아이콘: 브랜드 색 사각형 위 N
-const favicon = `data:image/svg+xml,${encodeURIComponent(
-  `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="12" fill="${C.brandColor}"/><path d="M18 46V18h6l16 18V18h6v28h-6L24 28v18z" fill="#fff"/></svg>`)}`;
-
 export function mountChrome(current) {
   const header = document.querySelector("[data-header]");
   const footer = document.querySelector("[data-footer]");
-  document.querySelectorAll('link[rel="icon"]').forEach((l) => (l.href = favicon));
   if (IS_DEMO) document.body.insertAdjacentHTML("afterbegin",
     `<div class="demo-banner">데모 모드입니다. assets/js/config.js 에 Supabase 정보를 넣으면 실제 데이터로 바뀝니다.</div>`);
   if (header) header.outerHTML = `
