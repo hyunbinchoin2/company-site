@@ -33,7 +33,8 @@ export function buildNewsletterHtml({ subject, preheader, intro, posts, company,
     <p style="margin:28px 0 10px;font:700 12px/1.6 ${font};color:${c};letter-spacing:1px">${esc(lead.category || "NEWS")}</p>
     <h2 style="margin:0 0 14px;font:800 23px/1.5 ${font};color:${ink};letter-spacing:-0.4px">
       <a href="${link(lead)}" style="color:${ink};text-decoration:none">${esc(lead.title)}</a></h2>
-    <p style="margin:0 0 28px;font:400 15px/1.95 ${font};color:${text}">${esc(lead.excerpt || "")}</p>
+    <p style="margin:0;font:400 15px/1.95 ${font};color:${text}">${esc(lead.excerpt || "")}</p>
+    <div style="height:36px;line-height:36px;font-size:0">&nbsp;</div>
     <table role="presentation" cellpadding="0" cellspacing="0"><tr>
       <td style="border-radius:8px;background:${c}">
         <a href="${link(lead)}" style="display:inline-block;padding:14px 26px;font:700 14px/1 ${font};color:#ffffff;text-decoration:none;letter-spacing:0.2px">자세히 읽기 &nbsp;&rarr;</a>
@@ -54,7 +55,8 @@ export function buildNewsletterHtml({ subject, preheader, intro, posts, company,
         ${p.category ? `<p style="margin:0 0 6px;font:700 12px/1.6 ${font};color:${c};letter-spacing:0.5px">${esc(p.category)}</p>` : ""}
         <a href="${link(p)}" style="font:800 18px/1.55 ${font};color:${ink};text-decoration:none;letter-spacing:-0.3px">${esc(p.title)}</a>
         ${p.excerpt ? `<p style="margin:10px 0 0;font:400 14px/1.9 ${font};color:${mute}">${esc(p.excerpt)}</p>` : ""}
-        <p style="margin:14px 0 0"><a href="${link(p)}" style="font:700 14px/1.6 ${font};color:${c};text-decoration:none">자세히 읽기 &rarr;</a></p>
+        <div style="height:22px;line-height:22px;font-size:0">&nbsp;</div>
+        <p style="margin:0"><a href="${link(p)}" style="font:700 14px/1.6 ${font};color:${c};text-decoration:none">자세히 읽기 &rarr;</a></p>
       </td>
     </tr></table>
   </td></tr>`).join("")}` : "";
@@ -77,8 +79,10 @@ export function buildNewsletterHtml({ subject, preheader, intro, posts, company,
 
   <!-- 머리: 가운데 로고 -->
   <tr><td align="center" style="padding:44px 36px 0">
-    <a href="${siteUrl}/?utm_source=newsletter" style="text-decoration:none;font:900 26px/1 ${font};color:${c};letter-spacing:3px">${logo}</a>
-    <p style="margin:14px 0 0;font:500 12px/1.6 ${font};color:${mute};letter-spacing:2px">NEWSLETTER &nbsp;·&nbsp; {{SEND_DATE}}</p>
+    <a href="${siteUrl}/?utm_source=newsletter" style="text-decoration:none;font:900 28px/1.2 ${font};color:${c};letter-spacing:3px">${logo}</a>
+  </td></tr>
+  <tr><td align="center" style="padding:20px 36px 0">
+    <p style="margin:0;font:500 12px/1.6 ${font};color:${mute};letter-spacing:2px">NEWSLETTER &nbsp;·&nbsp; {{SEND_DATE}}</p>
   </td></tr>
   <tr><td class="px" style="padding:32px 36px 0"><div style="height:1px;background:${line};line-height:1px;font-size:0">&nbsp;</div></td></tr>
 
