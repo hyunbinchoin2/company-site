@@ -32,7 +32,7 @@ export function buildNewsletterHtml({ subject, preheader, intro, posts, company,
     ${lead.cover_url ? `<a href="${link(lead)}" style="text-decoration:none"><img src="${esc(lead.cover_url)}" width="528" alt="${esc(lead.title)}" style="display:block;width:100%;max-width:528px;height:auto;border:0;border-radius:10px"></a>` : ""}
     <p style="margin:28px 0 10px;font:700 12px/1.6 ${font};color:${c};letter-spacing:1px">${esc(lead.category || "NEWS")}</p>
     <h2 style="margin:0 0 14px;font:800 23px/1.5 ${font};color:${ink};letter-spacing:-0.4px">
-      <a href="${link(lead)}" style="color:${ink};text-decoration:none">${esc(lead.title)}</a></h2>
+      <a href="${link(lead)}" style="color:${ink};text-decoration:none">${lead.title_html || esc(lead.title)}</a></h2>
     <p style="margin:0;font:400 15px/1.95 ${font};color:${text}">${esc(lead.excerpt || "")}</p>
     <div style="height:36px;line-height:36px;font-size:0">&nbsp;</div>
     <table role="presentation" cellpadding="0" cellspacing="0"><tr>
@@ -53,7 +53,7 @@ export function buildNewsletterHtml({ subject, preheader, intro, posts, company,
       <td style="padding:26px 0 6px">
         ${p.cover_url ? `<a href="${link(p)}" style="text-decoration:none"><img src="${esc(p.cover_url)}" width="528" alt="${esc(p.title)}" style="display:block;width:100%;max-width:528px;height:auto;border:0;border-radius:10px;margin:0 0 20px"></a>` : ""}
         ${p.category ? `<p style="margin:0 0 6px;font:700 12px/1.6 ${font};color:${c};letter-spacing:0.5px">${esc(p.category)}</p>` : ""}
-        <a href="${link(p)}" style="font:800 18px/1.55 ${font};color:${ink};text-decoration:none;letter-spacing:-0.3px">${esc(p.title)}</a>
+        <a href="${link(p)}" style="font:800 18px/1.55 ${font};color:${ink};text-decoration:none;letter-spacing:-0.3px">${p.title_html || esc(p.title)}</a>
         ${p.excerpt ? `<p style="margin:10px 0 0;font:400 14px/1.9 ${font};color:${mute}">${esc(p.excerpt)}</p>` : ""}
         <div style="height:22px;line-height:22px;font-size:0">&nbsp;</div>
         <p style="margin:0"><a href="${link(p)}" style="font:700 14px/1.6 ${font};color:${c};text-decoration:none">자세히 읽기 &rarr;</a></p>

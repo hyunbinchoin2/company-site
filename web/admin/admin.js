@@ -629,7 +629,7 @@ async function postEditor(id) {
   view.innerHTML = `
     <div class="editor">
       <div class="panel"><div class="panel-body row">
-        <div class="field"><label for="e-title">제목</label><input class="input" id="e-title" value="${esc(p.title)}" style="font-size:17px;font-weight:600"></div>
+        <div class="field"><label for="e-title">제목 <span class="count">줄을 바꿀 곳에 // 를 넣으세요</span></label><input class="input" id="e-title" value="${esc(p.title_raw ?? p.title)}" style="font-size:17px;font-weight:600"></div>
         <div class="field"><label for="e-excerpt">요약 <span class="count" id="c-ex"></span></label>
           <textarea class="textarea" id="e-excerpt" rows="2" maxlength="160">${esc(p.excerpt || "")}</textarea>
           <div class="help">금융소식 목록과 뉴스레터에 제목 아래로 들어갑니다.</div></div>

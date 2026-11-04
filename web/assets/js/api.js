@@ -15,6 +15,19 @@ const must = ({ data, error }) => {
   return data;
 };
 
+// 제목 안의 "//" 는 줄바꿈 표시입니다.
+//  title      : 줄바꿈 표시를 뺀 글자 (탭 제목, 공유, 목록 등)
+//  title_html : 줄바꿈 표시를 <br>로 바꾼 HTML (글 상세 제목, 메일 제목)
+//  title_raw  : 입력한 그대로 (관리자 편집 화면)
+const escHtml = (s = "") =>
+  String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+export const BREAK = /\s*\/\/\s*/g;
+export function withTitle(p) {
+  if (!p || p.title_raw !== undefined) return p;
+  const raw = p.title || "";
+  return { ...p, title_raw: raw, title: raw.replace(BREAK, " ").trim(), title_html: raw.split(BREAK).map(escHtml).join("<br>") };
+}
+
 export const postUrl = (slug, extra = "") =>
   `${CONFIG.SITE_URL}/post.html?slug=${encodeURIComponent(slug)}${extra}`;
 
@@ -107,17 +120,17 @@ export async function listPublishedPosts({ limit = 50, category = null } = {}) {
   if (IS_DEMO) {
     await wait();
     return clone(demo.posts.filter((p) => p.published && (!category || p.category === category))
-      .sort((a, b) => b.published_at.localeCompare(a.published_at)).slice(0, limit));
+      .sort((a, b) => b.published_at.localeCompare(a.published_at)).slice(0, limit)).map(withTitle);
   }
   let q = sb.from("posts").select("id,slug,title,excerpt,cover_url,category,published_at")
     .eq("published", true).order("published_at", { ascending: false }).limit(limit);
   if (category) q = q.eq("category", category);
-  return must(await q);
+  return must(await q).map(withTitle);
 }
 
 export async function getPostBySlug(slug) {
-  if (IS_DEMO) { await wait(); return clone(demo.posts.find((p) => p.slug === slug && p.published) || null); }
-  return must(await sb.from("posts").select("*").eq("slug", slug).eq("published", true).maybeSingle());
+  if (IS_DEMO) { await wait(); return withTitle(clone(demo.posts.find((p) => p.slug === slug && p.published) || null)); }
+  return withTitle(must(await sb.from("posts").select("*").eq("slug", slug).eq("published", true).maybeSingle()));
 }
 
 export async function subscribe(email, name = "") {
@@ -161,8 +174,8 @@ export async function signOut() {
 /*  관리자: 게시글                                                       */
 /* ------------------------------------------------------------------ */
 export async function listAllPosts() {
-  if (IS_DEMO) { await wait(); return clone(demo.posts); }
-  return must(await sb.from("posts").select("*").order("created_at", { ascending: false }));
+  if (IS_DEMO) { await wait(); return clone(demo.posts).map(withTitle); }
+  return must(await sb.from("posts").select("*").order("created_at", { ascending: false })).map(withTitle);
 }
 export async function savePost(post) {
   const row = { ...post, updated_at: new Date().toISOString() };

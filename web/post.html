@@ -48,7 +48,7 @@
       el.innerHTML = `
         <div class="article-inner">
           <span class="cat">${esc(post.category || "")}</span>
-          <h1>${esc(post.title)}</h1>
+          <h1>${post.title_html}</h1>
           <div class="article-meta">
             <span class="date">${fmtDate(post.published_at)}</span>
             <button class="share-btn" id="share" type="button">

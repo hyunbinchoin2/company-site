@@ -80,6 +80,7 @@ try {
 await mkdir(`${ROOT}/p`, { recursive: true });
 for (const p of posts) {
   if (!/^[a-z0-9-]+$/.test(p.slug)) continue;
+  p.title = (p.title || "").replace(/\s*\/\/\s*/g, " ").trim(); // 제목 줄바꿈 표시(//) 제거
   const target = `../post.html?slug=${p.slug}`;
   const img = /^https?:\/\//.test(p.cover_url || "") ? p.cover_url : DEFAULT_IMG;
   const desc = p.excerpt || `${NAME} 금융소식`;
