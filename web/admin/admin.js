@@ -88,6 +88,18 @@ function linkLabel(url, posts) {
   } catch { return url; }
 }
 
+// 몇 월 몇째주인지 계산 (한국 시간 기준)
+// 월~일을 한 주로 보고, 그 주의 목요일이 속한 달과 순번으로 정합니다. (달력 주차의 일반적인 기준)
+function weekOfMonthKST(date = new Date()) {
+  const kst = new Date(date.getTime() + 9 * 3600 * 1000);           // UTC → KST
+  const d = new Date(Date.UTC(kst.getUTCFullYear(), kst.getUTCMonth(), kst.getUTCDate()));
+  const dow = (d.getUTCDay() + 6) % 7;                               // 월=0 … 일=6
+  const thu = new Date(d.getTime() + (3 - dow) * 86400000);          // 이번 주 목요일
+  const n = Math.ceil(thu.getUTCDate() / 7);
+  const names = ["첫", "둘", "셋", "넷", "다섯"];
+  return { month: thu.getUTCMonth() + 1, week: names[n - 1] };
+}
+
 /* ------------------------------------------------------------------ */
 /*  부팅 · 로그인 · 라우팅                                                */
 /* ------------------------------------------------------------------ */
@@ -388,9 +400,9 @@ async function compose(id) {
     st = { id: nl.id, subject: nl.subject || "", preheader: nl.preheader || "", intro: nl.intro || "", post_ids: nl.post_ids || [] };
   } else {
     // 새로 만들 때: 최근 글 2개를 미리 골라두고 기본 문구를 채움
-    const m = new Date().getMonth() + 1;
-    st.subject = `${C.name} ${m}월 소식`;
-    st.intro = `엔투소프트의 소식과 최신 금융소식을 전달드려요.\n관심 있는 글이 있다면 눌러서 전체 내용을 확인해 보세요.`;
+    const { month, week } = weekOfMonthKST();
+    st.subject = `[N2news] ${month}월 ${week}째주 엔투소프트&금융 뉴스레터`;
+    st.intro = `저축은행 & 금융 보도자료 뉴스 소식을 전달드려요.\n관심 있는 글이 있다면 눌러서 전체 내용을 확인해 보세요.`;
     st.post_ids = published.slice(0, 2).map((p) => p.id);
   }
   let dirty = !id;
