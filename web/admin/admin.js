@@ -72,8 +72,9 @@ function downloadCsv(filename, rows) {
   setTimeout(() => URL.revokeObjectURL(a.href), 1000);
 }
 
+const fmtSched = (iso) => (iso ? new Date(iso).toLocaleString("ko-KR", { month: "long", day: "numeric", weekday: "short", hour: "numeric", minute: "2-digit" }) : "");
 function statusBadge(s) {
-  return { draft: `<span class="badge">임시저장</span>`, sending: `<span class="badge warn">발송 중</span>`,
+  return { draft: `<span class="badge">임시저장</span>`, scheduled: `<span class="badge brand">예약됨</span>`, sending: `<span class="badge warn">발송 중</span>`,
     sent: `<span class="badge ok">발송 완료</span>`, failed: `<span class="badge danger">실패</span>` }[s] || esc(s);
 }
 
@@ -235,12 +236,12 @@ function newsletterTable(list) {
   return `<div class="table-wrap"><table class="t">
     <thead><tr><th>제목</th><th>상태</th><th class="num">수신자</th><th class="num">오픈율</th><th class="num">클릭률</th></tr></thead>
     <tbody>${list.map((n) => `
-      <tr class="click" data-href="${n.status === "draft" ? `#/compose/${n.id}` : `#/stats/${n.id}`}">
-        <td class="title-cell"><b>${esc(n.subject || "(제목 없음)")}</b><small>${n.sent_at ? `${fmtDT(n.sent_at)} 발송` : `${fmtDT(n.created_at)} 작성`}</small></td>
+      <tr class="click" data-href="${["draft", "scheduled"].includes(n.status) ? `#/compose/${n.id}` : `#/stats/${n.id}`}">
+        <td class="title-cell"><b>${esc(n.subject || "(제목 없음)")}</b><small>${n.sent_at ? `${fmtDT(n.sent_at)} 발송` : n.status === "scheduled" ? `${fmtSched(n.scheduled_at)} 발송 예정` : `${fmtDT(n.created_at)} 작성`}</small></td>
         <td>${statusBadge(n.status)}</td>
-        <td class="num">${n.status === "draft" ? "–" : num(n.recipient_count)}</td>
-        <td class="num">${n.status === "draft" ? "–" : pct(n.unique_opens, n.recipient_count)}</td>
-        <td class="num">${n.status === "draft" ? "–" : pct(n.unique_clicks, n.recipient_count)}</td>
+        <td class="num">${["draft", "scheduled"].includes(n.status) ? "–" : num(n.recipient_count)}</td>
+        <td class="num">${["draft", "scheduled"].includes(n.status) ? "–" : pct(n.unique_opens, n.recipient_count)}</td>
+        <td class="num">${["draft", "scheduled"].includes(n.status) ? "–" : pct(n.unique_clicks, n.recipient_count)}</td>
       </tr>`).join("")}</tbody></table></div>`;
 }
 function bindRowLinks() {
@@ -263,7 +264,7 @@ async function newsletters() {
 async function stats(id) {
   const [nl, events, allPosts] = await Promise.all([api.getNewsletter(id), api.getNewsletterEvents(id), api.listAllPosts()]);
   if (!nl) { view.innerHTML = `<div class="panel empty-state"><p>뉴스레터를 찾을 수 없습니다.</p></div>`; return; }
-  if (nl.status === "draft") return go(`#/compose/${id}`);
+  if (["draft", "scheduled"].includes(nl.status)) return go(`#/compose/${id}`);
 
   setHeader(nl.subject, `${fmtDT(nl.sent_at)} 발송 · 수신자 ${num(nl.recipient_count)}명`,
     `<button class="btn line" id="view-mail">보낸 메일 보기</button><button class="btn line" id="dl-csv">반응 CSV 받기</button>`);
@@ -392,12 +393,14 @@ async function compose(id) {
   const allPosts = await api.listAllPosts();
   const published = allPosts.filter((p) => p.published).sort((a, b) => (b.published_at || "").localeCompare(a.published_at || ""));
   let st = { id: null, subject: "", preheader: "", intro: "", post_ids: [] };
+  let sched = null; // 예약 발송 시각 (예약 상태일 때만)
 
   if (id) {
     const nl = await api.getNewsletter(id);
     if (!nl) return go("#/compose");
-    if (nl.status !== "draft") return go(`#/stats/${id}`);
+    if (!["draft", "scheduled"].includes(nl.status)) return go(`#/stats/${id}`);
     st = { id: nl.id, subject: nl.subject || "", preheader: nl.preheader || "", intro: nl.intro || "", post_ids: nl.post_ids || [] };
+    sched = nl.status === "scheduled" ? nl.scheduled_at : null;
   } else {
     // 새로 만들 때: 최근 글 2개를 미리 골라두고 기본 문구를 채움
     const { month, week } = weekOfMonthKST();
@@ -467,7 +470,9 @@ async function compose(id) {
       <div class="actions">
         <button class="btn line" id="b-save">임시저장</button>
         <button class="btn line" id="b-test">테스트 메일 보내기</button>
-        <button class="btn" id="b-send">구독자에게 발송</button>
+        <button class="btn ghost" id="b-unsched" hidden>예약 취소</button>
+        <button class="btn line" id="b-sched">예약 발송</button>
+        <button class="btn" id="b-send">지금 발송</button>
       </div>
     </div>`;
 
@@ -477,7 +482,12 @@ async function compose(id) {
   const html = () => buildNewsletterHtml({ ...st, posts: selectedPosts(), company: C, siteUrl: CONFIG.SITE_URL });
 
   const setStatus = () => {
-    $("#save-status").textContent = dirty ? "저장하지 않은 변경 사항이 있습니다" : "저장됨";
+    const saved = dirty ? "저장하지 않은 변경 사항이 있습니다" : "저장됨";
+    $("#save-status").innerHTML = sched
+      ? `<b style="color:var(--brand)">⏰ ${esc(fmtSched(sched))} 발송 예약됨</b> · ${saved}`
+      : esc(saved);
+    $("#b-sched").textContent = sched ? "예약 시간 변경" : "예약 발송";
+    $("#b-unsched").hidden = !sched;
   };
   const renderOrder = () => {
     const ol = $("#order");
@@ -561,6 +571,45 @@ async function compose(id) {
       toast(IS_DEMO ? "데모 모드에서는 실제로 보내지 않습니다." : `${to}로 테스트 메일을 보냈습니다.`);
     } catch (err) { toast(`보내지 못했습니다: ${err.message}`, true); }
     busy(btn, false);
+  };
+  $("#b-sched").onclick = async () => {
+    if (!validate()) return;
+    const subs = await api.listSubscribers();
+    const n = subs.filter((s) => s.status === "active").length;
+    if (!n) return toast("발송할 활성 구독자가 없습니다.", true);
+    // 기본값: 이미 예약돼 있으면 그 시각, 아니면 내일 오전 9시
+    const base = sched ? new Date(sched) : (() => { const d = new Date(); d.setDate(d.getDate() + 1); d.setHours(9, 0, 0, 0); return d; })();
+    const pad = (x) => String(x).padStart(2, "0");
+    const local = `${base.getFullYear()}-${pad(base.getMonth() + 1)}-${pad(base.getDate())}T${pad(base.getHours())}:${pad(base.getMinutes())}`;
+    const val = await modal({
+      title: sched ? "예약 시간 변경" : "예약 발송",
+      body: `<p>활성 구독자 <b>${num(n)}명</b>에게 아래 시간에 자동으로 발송합니다.</p>
+             <p style="font-size:13px;color:var(--mute)">예약 시간 전까지는 내용을 고칠 수 있고, 고친 뒤 <b>임시저장</b>하면 고친 내용으로 나갑니다. 실제 발송은 정한 시간부터 1~2분 안에 시작돼요.</p>`,
+      input: { type: "datetime-local", value: local },
+      confirmText: "예약하기",
+    });
+    if (!val) return;
+    const when = new Date(val);
+    if (isNaN(when)) return toast("날짜와 시간을 다시 확인해 주세요.", true);
+    if (when.getTime() < Date.now() + 3 * 60 * 1000) return toast("예약 시간은 지금보다 3분 이상 뒤로 정해주세요.", true);
+    const btn = $("#b-sched");
+    busy(btn, true, "예약 중");
+    try {
+      await save();
+      await api.scheduleNewsletter(st.id, when.toISOString());
+      sched = when.toISOString();
+      busy(btn, false);
+      setStatus();
+      toast(`${fmtSched(sched)}에 발송하도록 예약했습니다.`);
+    } catch (err) { busy(btn, false); toast(`예약하지 못했습니다: ${err.message}`, true); }
+  };
+  $("#b-unsched").onclick = async () => {
+    if (!(await modal({ title: "예약을 취소할까요?", body: `<p>${esc(fmtSched(sched))} 발송 예약을 취소하고 임시저장 상태로 되돌립니다.</p>`, confirmText: "예약 취소" }))) return;
+    try {
+      await api.cancelSchedule(st.id);
+      sched = null; setStatus();
+      toast("예약을 취소했습니다.");
+    } catch (err) { toast(err.message, true); }
   };
   $("#b-send").onclick = async () => {
     if (!validate()) return;

@@ -290,6 +290,20 @@ export async function deleteNewsletter(id) {
   if (IS_DEMO) { demo.newsletters = demo.newsletters.filter((n) => n.id !== id); return; }
   must(await sb.from("newsletters").delete().eq("id", id));
 }
+// 예약 발송: 임시저장(또는 이미 예약된) 뉴스레터에 발송 시각을 정합니다.
+export async function scheduleNewsletter(id, isoTime) {
+  if (IS_DEMO) { Object.assign(demo.newsletters.find((n) => n.id === id), { status: "scheduled", scheduled_at: isoTime }); return; }
+  const rows = must(await sb.from("newsletters").update({ status: "scheduled", scheduled_at: isoTime })
+    .eq("id", id).in("status", ["draft", "scheduled"]).select("id"));
+  if (!rows.length) throw new Error("이미 발송했거나 발송 중인 뉴스레터입니다.");
+}
+export async function cancelSchedule(id) {
+  if (IS_DEMO) { Object.assign(demo.newsletters.find((n) => n.id === id), { status: "draft", scheduled_at: null }); return; }
+  const rows = must(await sb.from("newsletters").update({ status: "draft", scheduled_at: null })
+    .eq("id", id).eq("status", "scheduled").select("id"));
+  if (!rows.length) throw new Error("예약 상태가 아닙니다. 이미 발송이 시작됐을 수 있어요.");
+}
+
 export async function sendNewsletter(id, { testEmail } = {}) {
   if (IS_DEMO) {
     await wait(900);
