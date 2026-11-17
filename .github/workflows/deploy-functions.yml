@@ -1,3 +1,5 @@
+# supabase/functions 가 바뀌면 Edge Function 을 자동 배포합니다.
+# 함수별 설정(로그인 검사 여부)은 supabase/config.toml 을 따릅니다.
 name: Deploy Supabase Edge Functions
 
 on:
@@ -17,6 +19,4 @@ jobs:
       - uses: supabase/setup-cli@v1
         with:
           version: latest
-      - run: supabase functions deploy send-newsletter --project-ref "$PROJECT_REF"
-      - run: supabase functions deploy track --no-verify-jwt --project-ref "$PROJECT_REF"
-      - run: supabase functions deploy unsubscribe --no-verify-jwt --project-ref "$PROJECT_REF"
+      - run: supabase functions deploy --project-ref "$PROJECT_REF"
