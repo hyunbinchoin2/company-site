@@ -30,7 +30,9 @@ export function buildNewsletterHtml({ subject, preheader, intro, posts, company,
   const leadBlock = lead ? `
   <tr><td class="px" style="padding:12px 36px 0">
     ${lead.cover_url ? `<a href="${link(lead)}" style="text-decoration:none"><img src="${esc(lead.cover_url)}" width="528" alt="${esc(lead.title)}" style="display:block;width:100%;max-width:528px;height:auto;border:0;border-radius:10px"></a>` : ""}
-    <p style="margin:28px 0 10px;font:700 12px/1.6 ${font};color:${c};letter-spacing:1px">${esc(lead.category || "NEWS")}</p>
+    <div style="height:32px;line-height:32px;font-size:0">&nbsp;</div>
+    <p style="margin:0;font:700 12px/1.6 ${font};color:${c};letter-spacing:1px">${esc(lead.category || "NEWS")}</p>
+    <div style="height:10px;line-height:10px;font-size:0">&nbsp;</div>
     <h2 style="margin:0 0 14px;font:800 23px/1.5 ${font};color:${ink};letter-spacing:-0.4px">
       <a href="${link(lead)}" style="color:${ink};text-decoration:none">${lead.title_html || esc(lead.title)}</a></h2>
     <p style="margin:0;font:400 15px/1.95 ${font};color:${text}">${esc(lead.excerpt || "")}</p>
