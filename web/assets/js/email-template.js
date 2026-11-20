@@ -42,24 +42,28 @@ export function buildNewsletterHtml({ subject, preheader, intro, posts, company,
     </tr></table>
   </td></tr>` : "";
 
-  // 나머지 글: 세로로 쌓는 카드 (휴대폰 메일 앱에서도 깨지지 않도록 한 줄 배치를 쓰지 않음)
+  // 나머지 글: 썸네일 + 제목만, 두 칸씩 나란히 (요약은 넣지 않음)
+  // 메일 앱이 화면 크기 설정을 무시해도 깨지지 않도록 고정 2칸 표로 만듭니다.
+  const cell = (p) => p ? `
+      <td width="50%" valign="top" style="width:50%;padding:0 8px 28px">
+        <a href="${link(p)}" style="text-decoration:none">
+          ${p.cover_url
+            ? `<img src="${esc(p.cover_url)}" width="248" alt="${esc(p.title)}" style="display:block;width:100%;max-width:248px;height:auto;border:0;border-radius:8px">`
+            : `<div style="height:8px;line-height:8px;font-size:0">&nbsp;</div>`}
+        </a>
+        <div style="height:14px;line-height:14px;font-size:0">&nbsp;</div>
+        <a href="${link(p)}" style="font:700 15px/1.6 ${font};color:${ink};text-decoration:none;letter-spacing:-0.2px">${p.title_html || esc(p.title)}</a>
+      </td>` : `<td width="50%" style="width:50%;padding:0 8px">&nbsp;</td>`;
+  const rows = [];
+  for (let i = 0; i < rest.length; i += 2) rows.push(`<tr>${cell(rest[i])}${cell(rest[i + 1])}</tr>`);
   const restBlock = rest.length ? `
   <tr><td class="px" style="padding:56px 36px 0">
     <p style="margin:0;font:700 13px/1.6 ${font};color:${ink};letter-spacing:0.5px">함께 읽으면 좋은 글</p>
+    <div style="height:1px;background:${line};line-height:1px;font-size:0;margin-top:12px">&nbsp;</div>
   </td></tr>
-  ${rest.map((p) => `
-  <tr><td class="px" style="padding:14px 36px 0">
-    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-top:1px solid ${line}"><tr>
-      <td style="padding:26px 0 6px">
-        ${p.cover_url ? `<a href="${link(p)}" style="text-decoration:none"><img src="${esc(p.cover_url)}" width="528" alt="${esc(p.title)}" style="display:block;width:100%;max-width:528px;height:auto;border:0;border-radius:10px;margin:0 0 20px"></a>` : ""}
-        ${p.category ? `<p style="margin:0 0 6px;font:700 12px/1.6 ${font};color:${c};letter-spacing:0.5px">${esc(p.category)}</p>` : ""}
-        <a href="${link(p)}" style="font:800 18px/1.55 ${font};color:${ink};text-decoration:none;letter-spacing:-0.3px">${p.title_html || esc(p.title)}</a>
-        ${p.excerpt ? `<p style="margin:10px 0 0;font:400 14px/1.9 ${font};color:${mute}">${esc(p.excerpt)}</p>` : ""}
-        <div style="height:22px;line-height:22px;font-size:0">&nbsp;</div>
-        <p style="margin:0"><a href="${link(p)}" style="font:700 14px/1.6 ${font};color:${c};text-decoration:none">자세히 읽기 &rarr;</a></p>
-      </td>
-    </tr></table>
-  </td></tr>`).join("")}` : "";
+  <tr><td class="px" style="padding:24px 28px 0">
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="table-layout:fixed">${rows.join("")}</table>
+  </td></tr>` : "";
 
   return `<!doctype html>
 <html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
