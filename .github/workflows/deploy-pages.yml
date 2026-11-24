@@ -2,6 +2,7 @@
 # - main 에 push 할 때
 # - 30분마다 자동으로 (새 글의 공유 썸네일 페이지·사이트맵을 만들기 위해)
 # - Actions 탭에서 Run workflow 를 눌렀을 때
+# 묶음 만들기(build)와 배포(deploy)를 두 작업으로 나눠 안정적으로 배포합니다.
 name: Deploy site to GitHub Pages
 
 on:
@@ -22,11 +23,8 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v5
       - uses: actions/setup-node@v5
@@ -38,5 +36,13 @@ jobs:
       - uses: actions/upload-pages-artifact@v4
         with:
           path: web
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
       - id: deployment
         uses: actions/deploy-pages@v4
