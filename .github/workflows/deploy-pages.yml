@@ -1,6 +1,6 @@
 # web/ 폴더를 GitHub Pages 로 배포합니다.
 # - main 에 push 할 때
-# - 30분마다 자동으로 (새 블로그 글의 공유 썸네일 페이지를 만들기 위해)
+# - 30분마다 자동으로 (새 글의 공유 썸네일 페이지·사이트맵을 만들기 위해)
 # - Actions 탭에서 Run workflow 를 눌렀을 때
 name: Deploy site to GitHub Pages
 
@@ -28,14 +28,14 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
         with:
-          node-version: 20
-      - name: 공유 썸네일 페이지 만들기
+          node-version: 24
+      - name: 공유 썸네일 페이지·사이트맵 만들기
         run: node tools/build-share.mjs
       - uses: actions/configure-pages@v5
-      - uses: actions/upload-pages-artifact@v3
+      - uses: actions/upload-pages-artifact@v4
         with:
           path: web
       - id: deployment
